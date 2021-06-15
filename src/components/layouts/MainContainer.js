@@ -24,10 +24,9 @@ import AddProject from '../pages/Project/AddProject';
 import EditProject from '../pages/Project/EditProject';
 
 import LoggedInRoute from './LoggedInRoute';
-import { Container } from 'react-bootstrap';
 import {
-  FaInfo, FaUser, FaBullseye, FaUniversity, FaBuilding, FaTools,
-  FaGlobe, FaProductHunt, FaEnvelopeOpenText, FaIdCard, FaHome
+  FaInfo, FaUniversity, FaBuilding, FaTools,
+  FaGlobe, FaProductHunt, FaIdCard, FaHome
 } from 'react-icons/fa';
 import 'boxicons'
 
@@ -36,7 +35,6 @@ function MainContainer() {
   return (
     <div>
       <Header />
-      <Container fluid>
         <Row>
 
           <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block sidebar collapse">
@@ -88,7 +86,6 @@ function MainContainer() {
             <LoggedInRoute path='/contact' exact component={Contact} />
           </main>
         </Row>
-      </Container>
     </div>
   );
 }

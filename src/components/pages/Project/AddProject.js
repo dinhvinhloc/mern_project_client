@@ -1,6 +1,6 @@
 import React from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
-import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
+import { Button, Card, Form, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 const breadcrumbLinks = [
