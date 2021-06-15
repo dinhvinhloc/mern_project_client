@@ -4,7 +4,11 @@ import { Row } from 'react-bootstrap';
 import Header from './Header';
 import Home from '../pages/Home/Home';
 import AboutMe from '../pages/AboutMe/AboutMe';
+
 import Contact from '../pages/Contact/Contact';
+import AddContact from '../pages/Contact/EditContact';
+import EditContact from '../pages/Contact/EditContact';
+
 import Education from '../pages/Education/Education';
 
 import Experience from '../pages/Experience/Experience';
@@ -22,6 +26,14 @@ import EditLanguage from '../pages/Language/EditLanguage';
 import Project from '../pages/Project/Project';
 import AddProject from '../pages/Project/AddProject';
 import EditProject from '../pages/Project/EditProject';
+
+import Award from '../pages/Award/Award';
+import AddAward from '../pages/Award/AddAward';
+import EditAward from '../pages/Award/EditAward';
+
+import Hobby from '../pages/Hobby/Hobby';
+import AddHobby from '../pages/Hobby/AddHobby';
+import EditHobby from '../pages/Hobby/EditHobby';
 
 import LoggedInRoute from './LoggedInRoute';
 import {
@@ -56,6 +68,9 @@ function MainContainer() {
                   <NavLink to='/skill' className='nav-link'><i><FaTools /></i>Skill</NavLink>
                 </li>
                 <li>
+                  <NavLink to='/award' className='nav-link'><i><FaTools /></i>Award</NavLink>
+                </li>
+                <li>
                   <NavLink to='/language' className='nav-link'><i><FaGlobe /></i>Language</NavLink>
                 </li>
                 <li>
@@ -63,6 +78,9 @@ function MainContainer() {
                 </li>
                 <li>
                   <NavLink to='/contact' className='nav-link'><i><FaIdCard /></i>Contact</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/hobby' className='nav-link'><i><FaIdCard /></i>Hobbies</NavLink>
                 </li>
               </ul>
             </div>
@@ -83,7 +101,15 @@ function MainContainer() {
             <LoggedInRoute path='/project' exact component={Project} />
             <LoggedInRoute path='/project/add' exact component={AddProject} />
             <LoggedInRoute path='/project/edit/:id' exact component={EditProject} />
+            <LoggedInRoute path='/award' exact component={Award} />
+            <LoggedInRoute path='/award/add' exact component={AddAward} />
+            <LoggedInRoute path='/award/edit/:id' exact component={EditAward} />
             <LoggedInRoute path='/contact' exact component={Contact} />
+            <LoggedInRoute path='/contact/add' exact component={AddContact} />
+            <LoggedInRoute path='/contact/edit/:id' exact component={EditContact} />
+            <LoggedInRoute path='/hobby' exact component={Hobby} />
+            <LoggedInRoute path='/hobby/add' exact component={AddHobby} />
+            <LoggedInRoute path='/hobby/edit/:id' exact component={EditHobby} />
           </main>
         </Row>
     </div>
