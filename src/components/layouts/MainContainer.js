@@ -4,6 +4,7 @@ import { Row } from 'react-bootstrap';
 import Header from './Header';
 import Home from '../pages/Home/Home';
 import AboutMe from '../pages/AboutMe/AboutMe';
+import EditAboutMe from '../pages/AboutMe/EditAboutMe'
 import Contact from '../pages/Contact/Contact';
 import Education from '../pages/Education/Education';
 
@@ -14,6 +15,7 @@ import EditExperience from '../pages/Experience/EditExperience';
 import Skill from '../pages/Skill/Skill';
 import AddSkill from '../pages/Skill/AddSkill';
 import EditSkill from '../pages/Skill/EditSkill';
+import DeleteSkill from '../pages/Skill/DeleteSkill';
 
 import Language from '../pages/Language/Language';
 import AddLanguage from '../pages/Language/AddLanguage';
@@ -72,6 +74,7 @@ function MainContainer() {
           <main role='main' className='col-md-9 ml-sm-auto col-lg-10 px-md-4'>
             <LoggedInRoute path='/' exact component={Home} />
             <LoggedInRoute path='/about-me' exact component={AboutMe} />
+            <LoggedInRoute path='/about-me/edit' exact component={EditAboutMe} />
             <LoggedInRoute path='/education' exact component={Education} />
             <LoggedInRoute path='/experience' exact component={Experience} />
             <LoggedInRoute path='/experience/add' exact component={AddExperience} />
@@ -79,6 +82,7 @@ function MainContainer() {
             <LoggedInRoute path='/skill' exact component={Skill} />
             <LoggedInRoute path='/skill/add' exact component={AddSkill} />
             <LoggedInRoute path='/skill/edit/:id' exact component={EditSkill} />
+            <LoggedInRoute path='/skill/delete/:id' exact component={DeleteSkill} />
             <LoggedInRoute path='/language' exact component={Language} />
             <LoggedInRoute path='/language/add' exact component={AddLanguage} />
             <LoggedInRoute path='/language/edit/:id' component={EditLanguage} />
