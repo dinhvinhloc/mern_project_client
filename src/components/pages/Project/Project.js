@@ -19,7 +19,33 @@ const breadcrumbLinks = [
 class Project extends Component {
 
   state = {
-    projects: [],
+    projects: [
+      {
+        "id": "1",
+        "name": "Java",
+        "description": "Java developer",
+      },
+      {
+        "id": "2",
+        "name": "C#",
+        "description": "C# developer",
+      },
+      {
+        "id": "3",
+        "name": "Python",
+        "description": "Python developer",
+      },
+      {
+        "id": "4",
+        "name": ".Net",
+        "description": ".Net developer",
+      },
+      {
+        "id": "5",
+        "name": "GoLang",
+        "description": "GoLang developer",
+      },
+    ],
     searchKeyword: ''
   }
 
@@ -67,7 +93,8 @@ class Project extends Component {
                 </Col>
               </Form.Row>
             </Form>
-            <NavLink exact to='/project/add' className='btn btn-sm btn-outline-secondary float-right'>New Project</NavLink>
+            {/* <NavLink exact to='/project/add' className='btn btn-sm btn-outline-secondary float-right'>New Project</NavLink> */}
+            <NavLink exact to='/project/add' className='myButton'>Add Project</NavLink>
             <Table bordered hover>
               <thead>
                 <tr>
@@ -80,14 +107,14 @@ class Project extends Component {
               <tbody>
                 {
                   this.state.projects.map((project, index) =>
-                  project.name.toLowerCase().includes(this.state.searchKeyword.toLowerCase()) ?
+                    project.name.toLowerCase().includes(this.state.searchKeyword.toLowerCase()) ?
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{project.name}</td>
                         <td>{project.description}</td>
                         <td className='text-center'>
-                          <NavLink exact to={'/project/edit/' + project._id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
-                          <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => this.onDeleteHandler(project._id)} /></NavLink>
+                          <NavLink exact to={'/project/edit/' + project.id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
+                          <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => this.onDeleteHandler(project.id)} /></NavLink>
                         </td>
                       </tr> : ''
                   )
