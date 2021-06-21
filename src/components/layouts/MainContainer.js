@@ -11,6 +11,9 @@ import AddContact from '../pages/Contact/EditContact';
 import EditContact from '../pages/Contact/EditContact';
 
 import Education from '../pages/Education/Education';
+import AddEducation from '../pages/Education/AddEducation';
+import EditEducation from '../pages/Education/EditEducation';
+import DeleteEducation from '../pages/Education/DeleteEducation';
 
 import Experience from '../pages/Experience/Experience';
 import AddExperience from '../pages/Experience/AddExperience';
@@ -54,7 +57,7 @@ function MainContainer() {
       <Header />
         <Row>
 
-          <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block sidebar collapse">
+          <nav id="sidebarMenu" className="col-md-3 col-lg-1 d-md-block sidebar collapse">
             <div className="sidebar-sticky pt-3">
               <ul className="nav flex-column">
                 <li>
@@ -98,6 +101,9 @@ function MainContainer() {
             <LoggedInRoute path='/about-me' exact component={AboutMe} />
             <LoggedInRoute path='/about-me/edit' exact component={EditAboutMe} />
             <LoggedInRoute path='/education' exact component={Education} />
+            <LoggedInRoute path='/education/add' exact component={AddEducation} />
+            <LoggedInRoute path='/education/edit/:id' exact component={EditEducation} />
+            <LoggedInRoute path='/education/delete/:id' exact component={DeleteEducation} />
             <LoggedInRoute path='/experience' exact component={Experience} />
             <LoggedInRoute path='/experience/add' exact component={AddExperience} />
             <LoggedInRoute path='/experience/edit/:id' exact component={EditExperience} />
