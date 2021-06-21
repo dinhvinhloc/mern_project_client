@@ -297,3 +297,8 @@ body{
 .skillsTablePad {
   padding: 10px;
 }
+
+.carouselImg {
+  width: 50px;
+  height: 450px;
+}

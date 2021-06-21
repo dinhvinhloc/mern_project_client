@@ -37,11 +37,14 @@ import Hobby from '../pages/Hobby/Hobby';
 import AddHobby from '../pages/Hobby/AddHobby';
 import EditHobby from '../pages/Hobby/EditHobby';
 
+import BuildResume from '../pages/BuildResume/BuildResume'
+
 import LoggedInRoute from './LoggedInRoute';
 import {
   FaInfo, FaUniversity, FaBuilding, FaTools,
   FaGlobe, FaProductHunt, FaIdCard, FaHome
 } from 'react-icons/fa';
+import {GiPuzzle} from 'react-icons/gi';
 import 'boxicons'
 
 
@@ -84,6 +87,9 @@ function MainContainer() {
                 <li>
                   <NavLink to='/hobby' className='nav-link'><i><FaIdCard /></i>Hobbies</NavLink>
                 </li>
+                <li>
+                  <NavLink to='/build-resume' className='nav-link'><i><GiPuzzle /></i>Build Resume</NavLink>
+                </li>
               </ul>
             </div>
           </nav>
@@ -114,6 +120,7 @@ function MainContainer() {
             <LoggedInRoute path='/hobby' exact component={Hobby} />
             <LoggedInRoute path='/hobby/add' exact component={AddHobby} />
             <LoggedInRoute path='/hobby/edit/:id' exact component={EditHobby} />
+            <LoggedInRoute path='/build-resume' exact component={BuildResume} />
           </main>
         </Row>
     </div>
