@@ -54,7 +54,7 @@ function MainContainer() {
       <Header />
         <Row>
 
-          <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block sidebar collapse">
+          <nav id="sidebarMenu" className="col-md-3 col-lg-1 d-md-block sidebar collapse">
             <div className="sidebar-sticky pt-3">
               <ul className="nav flex-column">
                 <li>
