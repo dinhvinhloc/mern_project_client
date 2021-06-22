@@ -288,3 +288,23 @@ body{
 .skillsTablePad {
   padding: 10px;
 }
+
+.carouselImg {
+  width: 50px;
+  height: 450px;
+}
+
+.thumb {
+  width: 200px;
+  height: 50px;
+}
+
+.thumbView {
+  width: 600px;
+  height: 500px;
+  margin: auto;
+}
+
+.legend {
+  font-weight: bolder;
+}
