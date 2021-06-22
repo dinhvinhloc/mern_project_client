@@ -1,11 +1,29 @@
 import React from 'react';
+import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
 
+const breadcrumbLinks = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Contact',
+    path: '/contact'
+  },
+  {
+    label: 'New Contact',
+    path: '/contact/add',
+    active: true
+  }
+];
+
 const AddContact = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [webURL, setWebURL] = useState('');
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -15,12 +33,18 @@ const AddContact = () => {
     setPhone(e.target.value);
   };
 
+  const handleChangeURL = (e) => {
+    setWebURL(e.target.value);
+  };
+
   const saveHandler = (e) => {
 
   }
 
   return (
     <div>
+      <Breadcrumbs links={breadcrumbLinks} />
+
       <Card
           bg='light'
           text='dark'
@@ -43,6 +67,13 @@ const AddContact = () => {
                   size='sm' type='text' name='phone'
                   placeholder='Enter your phone'
                   onChange={handleChangePhone} />
+                </Col>
+                <Col>
+                  <Form.Label>Website URL:</Form.Label>
+                  <Form.Control
+                  size='sm' type='text' name='webURL'
+                  placeholder='Enter the link to your personal website'
+                  onChange={handleChangeURL} />
                 </Col>
               </Form.Row>
             </Form.Group>

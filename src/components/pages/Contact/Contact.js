@@ -1,20 +1,35 @@
 import React from 'react';
+import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
+
+const breadcrumbLinks = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Contact',
+    path: '/contact',
+    active: true
+  }
+];
 
 const Contact = (props) => {
   const [contactList, setContactList] = useState([
     {
       "id": "1",
       "email": "abc@zxc.ca",
-      "phone": "12345678"
+      "phone": "12345678",
+      "webURL": "linkedin.com"
     },
     {
       "id": "2",
       "email": "abc2@zxc.ca",
-      "phone": "12345678(2)"
+      "phone": "12345678(2)",
+      "webURL": "linkedin.com(2)"
     },
   ])
 
@@ -24,6 +39,7 @@ const Contact = (props) => {
 
   return (
   <div>
+    <Breadcrumbs links={breadcrumbLinks} />
     <Card
           bg='light'
           text='dark'
@@ -37,7 +53,8 @@ const Contact = (props) => {
                 <th>#</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Actions URL</th>
+                <th>Website URL</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -47,6 +64,7 @@ const Contact = (props) => {
                     <td>{index+1}</td>
                     <td>{contact.email}</td>
                     <td>{contact.phone}</td>
+                    <td>{contact.webURL}</td>
                     <td className='text-center'>
                       <NavLink exact to={'/contact/edit/' + contact.id} className='mr-3'>
                         <FaPenSquare className='text-warning' />

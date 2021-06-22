@@ -1,7 +1,24 @@
 import React from 'react';
+import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
+
+const breadcrumbLinks = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Hobbies',
+    path: '/hobby'
+  },
+  {
+    label: 'New Hobby',
+    path: '/hobby/add',
+    active: true
+  }
+];
 
 const AddHobby = () => {
   const [typeList, setTypeList] = useState(['Hobby', 'Interest']);
@@ -21,6 +38,8 @@ const AddHobby = () => {
   }
 
   return <div>
+    <Breadcrumbs links={breadcrumbLinks} />
+
     <Card
           bg='light'
           text='dark'

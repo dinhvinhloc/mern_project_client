@@ -1,14 +1,36 @@
 import React from 'react';
+import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
 
+const breadcrumbLinks = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Awards',
+    path: '/award'
+  },
+  {
+    label: 'New Award',
+    path: '/award/add',
+    active: true
+  }
+];
+
 const AddAward = () => {
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
+  };
+
+  const handleChangeDescription = (e) => {
+    setDescription(e.target.value);
   };
 
   const handleChangeDate = (e) => {
@@ -19,6 +41,7 @@ const AddAward = () => {
 
   }
   return <div>
+    <Breadcrumbs links={breadcrumbLinks} />
     <Card
           bg='light'
           text='dark'
@@ -34,6 +57,13 @@ const AddAward = () => {
                   size='sm' type='text' name='title'
                   placeholder='Enter your award title'
                   onChange={handleChangeTitle} />
+                </Col>
+                <Col>
+                  <Form.Label>Description:</Form.Label>
+                  <Form.Control
+                  size='sm' type='text' name='description'
+                  placeholder='Shortly describe it'
+                  onChange={handleChangeDescription} />
                 </Col>
                 <Col>
                   <Form.Label>Date obtained:</Form.Label>

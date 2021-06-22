@@ -1,19 +1,34 @@
 import React from 'react';
+import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
+
+const breadcrumbLinks = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Awards',
+    path: '/award',
+    active: true
+  }
+];
 
 const Award = () => {
   const [awardList, setAwardlist] = useState([
     {
       "id": "1",
       "title": "title1",
+      "description": "Lorem ipsum dolor si amet",
       "date": "date1"
     },
     {
       "id": "2",
       "title": "title2",
+      "description": "Lorem ipsum dolor si amet",
       "date": "date2"
     }
   ])
@@ -23,6 +38,7 @@ const Award = () => {
   }
 
   return <div>
+    <Breadcrumbs links={breadcrumbLinks} />
     <Card
           bg='light'
           text='dark'
@@ -35,8 +51,9 @@ const Award = () => {
               <tr>
                 <th>#</th>
                 <th>Title</th>
+                <th>Description</th>
                 <th>Date</th>
-                <th>Actions URL</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -45,6 +62,7 @@ const Award = () => {
                   <tr key={index}>
                     <td>{index+1}</td>
                     <td>{award.title}</td>
+                    <td>{award.description}</td>
                     <td>{award.date}</td>
                     <td className='text-center'>
                       <NavLink exact to={'/award/edit/' + award.id} className='mr-3'>

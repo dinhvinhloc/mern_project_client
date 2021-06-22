@@ -1,8 +1,21 @@
 import React from 'react';
+import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
+
+const breadcrumbLinks = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Hobbies',
+    path: '/hobby',
+    active: true
+  }
+];
 
 const Hobby = () => {
   const [hobbyList, setHobbylist] = useState([
@@ -23,6 +36,7 @@ const Hobby = () => {
   }
 
   return <div>
+    <Breadcrumbs links={breadcrumbLinks} />
     <Card
         bg='light'
         text='dark'
@@ -36,7 +50,7 @@ const Hobby = () => {
               <th>#</th>
               <th>Name</th>
               <th>Type</th>
-              <th>Actions URL</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +65,7 @@ const Hobby = () => {
                       <FaPenSquare className='text-warning' />
                     </NavLink>
                     <NavLink exact to='#' className='mr-3'>
-                      <FaTrash className='text-danger' onClick={onDeleteHandler} />
+                      <FaTrash className='text-danger' onClick={onDeleteHandler(hobby._id)} />
                     </NavLink>
                   </td>
                 </tr>
