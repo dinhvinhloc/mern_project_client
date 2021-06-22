@@ -7,7 +7,7 @@ import AboutMe from '../pages/AboutMe/AboutMe';
 import EditAboutMe from '../pages/AboutMe/EditAboutMe'
 
 import Contact from '../pages/Contact/Contact';
-import AddContact from '../pages/Contact/EditContact';
+import AddContact from '../pages/Contact/AddContact';
 import EditContact from '../pages/Contact/EditContact';
 
 import Education from '../pages/Education/Education';
@@ -44,7 +44,9 @@ import BuildResume from '../pages/BuildResume/BuildResume'
 import LoggedInRoute from './LoggedInRoute';
 import {
   FaInfo, FaUniversity, FaBuilding, FaTools,
-  FaGlobe, FaProductHunt, FaIdCard, FaHome
+  FaGlobe, FaProductHunt, FaIdCard, FaHome,
+  FaAward, FaBookOpen
+
 } from 'react-icons/fa';
 import {GiPuzzle} from 'react-icons/gi';
 import 'boxicons'
@@ -75,7 +77,7 @@ function MainContainer() {
                   <NavLink to='/skill' className='nav-link'><i><FaTools /></i>Skill</NavLink>
                 </li>
                 <li>
-                  <NavLink to='/award' className='nav-link'><i><FaTools /></i>Award</NavLink>
+                  <NavLink to='/award' className='nav-link'><i><FaAward /></i>Award</NavLink>
                 </li>
                 <li>
                   <NavLink to='/language' className='nav-link'><i><FaGlobe /></i>Language</NavLink>
@@ -87,7 +89,7 @@ function MainContainer() {
                   <NavLink to='/contact' className='nav-link'><i><FaIdCard /></i>Contact</NavLink>
                 </li>
                 <li>
-                  <NavLink to='/hobby' className='nav-link'><i><FaIdCard /></i>Hobbies</NavLink>
+                  <NavLink to='/hobby' className='nav-link'><i><FaBookOpen /></i>Hobbies</NavLink>
                 </li>
                 <li>
                   <NavLink to='/build-resume' className='nav-link'><i><GiPuzzle /></i>Build Resume</NavLink>
