@@ -15,6 +15,10 @@ const EditContact = () => {
     setPhone(e.target.value);
   };
 
+  const saveHandler = (e) => {
+
+  }
+
   return (
     <div>
       <Card
@@ -22,36 +26,40 @@ const EditContact = () => {
         text='dark'
       >
         <Card.Header>Edit Contact details</Card.Header>
-
+        <Card.Body>
+          <Form>
+            <Form.Group>
+              <Form.Row>
+                <Col>
+                  <Form.Label>Email:</Form.Label>
+                  <Form.Control
+                  size='sm' type='email' name='email'
+                  placeholder='Enter your email'
+                  value={email}
+                  onChange={handleChangeEmail} />
+                </Col>
+                <Col>
+                  <Form.Label>Phone:</Form.Label>
+                  <Form.Control
+                  size='sm' type='text' name='phone'
+                  placeholder='Enter your phone'
+                  value={phone}
+                  onChange={handleChangePhone} />
+                </Col>
+              </Form.Row>
+            </Form.Group>
+          </Form>
+        </Card.Body>
+        <Card.Footer>
+          <Button size='sm' variant='success' className='float-right'
+            type='submit'
+            onClick={saveHandler}>
+              Save
+          </Button>
+          <NavLink exact to='/contact' className='btn btn-sm btn-outline-secondary float-left'>Back to Contact Overview
+          </NavLink>
+        </Card.Footer>
       </Card>
-
-
-<form>
-      <NavLink exact to='/contact' className='btn btn-sm btn-outline-secondary float-right'>
-        Go Back to Contact Overview
-      </NavLink>
-      <div>
-        <h2>Edit Contact details:</h2>
-
-        <label>Email:</label>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={handleChangeEmail}
-        />
-
-        <label>Phone:</label>
-        <input
-          type="text"
-          placeholder="Enter your phone"
-          value={phone}
-          onChange={handleChangePhone}
-        />
-
-      </div>
-    </form>
-
     </div>
 
   );

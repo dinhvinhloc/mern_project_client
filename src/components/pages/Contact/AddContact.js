@@ -15,7 +15,7 @@ const AddContact = () => {
     setPhone(e.target.value);
   };
 
-  saveHandler = (e) => {
+  const saveHandler = (e) => {
 
   }
 

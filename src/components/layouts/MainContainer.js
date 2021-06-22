@@ -7,7 +7,7 @@ import AboutMe from '../pages/AboutMe/AboutMe';
 import EditAboutMe from '../pages/AboutMe/EditAboutMe'
 
 import Contact from '../pages/Contact/Contact';
-import AddContact from '../pages/Contact/EditContact';
+import AddContact from '../pages/Contact/AddContact';
 import EditContact from '../pages/Contact/EditContact';
 
 import Education from '../pages/Education/Education';
