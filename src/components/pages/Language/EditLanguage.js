@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
@@ -21,77 +21,77 @@ const breadcrumbLinks = [
   }
 ];
 
-class EditLanguage extends React.Component {
+const EditLanguage = () => {
 
-  constructor() {
-    super();
-    this.state = {
+  const [state, setState] = useState(
+    {
       id: '',
       language: '',
       level: '',
       messageVariant: 'success',
       hasMessage: false,
       messageInfo: ''
-    };
-  }
+    }
+  )
 
-  componentDidMount() {
+  const componentDidMount = () => {
     
   }
 
-  saveHandler = (e) => {
+  const saveHandler = (e) => {
     
   }
 
-  handleValueChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleValueChange = (e) => {
+    setState({ [e.target.name]: e.target.value });
   };
 
-  render() {
-    return (
-      <div>
-        <Breadcrumbs links={breadcrumbLinks} />
-        {  
-          this.state.hasMessage ? <Alert variant={this.state.messageVariant}>{this.state.messageInfo}</Alert> : ''
-        }
-        
-        <Card
-          bg='light'
-          text='dark'
-        >
-          <Card.Header>Update Language</Card.Header>
-          <Card.Body>
-            <Form>
-              <Form.Group>
-                <Form.Row>
-                  <Col>
-                    <Form.Label>Language</Form.Label>
-                    <Form.Control onChange={this.handleValueChange} value={this.state.language} name='language' size='sm' type="text" placeholder="Enter language" />
-                  </Col>
-                  <Col>
-                    <Form.Label>level</Form.Label>
-                    <Form.Control onChange={this.handleValueChange} value={this.state.level} name='level' size='sm' as="select">
-                      <option value='' key='-1'>--- Please select level ---</option>
-                      {
-                        Levels.map((value, index) => (
-                          <option value={value} key={index}>{value}</option>
-                        ))
-                      } 
-                    </Form.Control>
-                  </Col>
-                </Form.Row>
-              </Form.Group>
-            </Form>
-          </Card.Body>
-          <Card.Footer>
-            <Button size='sm' onClick={this.saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
-            <NavLink exact to='/language' className='btn btn-outline-secondary btn-sm float-left'>Back to Language</NavLink>
-          </Card.Footer>
-        </Card>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Breadcrumbs links={breadcrumbLinks} />
+      {  
+        state.hasMessage ? <Alert variant={state.messageVariant}>{state.messageInfo}</Alert> : ''
+      }
+      
+      <Card
+        bg='light'
+        text='dark'
+      >
+        <Card.Header>Update Language</Card.Header>
+        <Card.Body>
+          <Form>
+            <Form.Group>
+              <Form.Row>
+                <Col>
+                  <Form.Label>Language</Form.Label>
+                  <Form.Control onChange={handleValueChange} value={state.language} name='language' size='sm' type="text" placeholder="Enter language" />
+                </Col>
+                <Col>
+                  <Form.Label>level</Form.Label>
+                  <Form.Control onChange={handleValueChange} value={state.level} name='level' size='sm' as="select">
+                    <option value='' key='-1'>--- Please select level ---</option>
+                    {
+                      Levels.map((value, index) => (
+                        <option value={value} key={index}>{value}</option>
+                      ))
+                    } 
+                  </Form.Control>
+                </Col>
+              </Form.Row>
+            </Form.Group>
+          </Form>
+        </Card.Body>
+        <Card.Footer>
+          <Button size='sm' onClick={saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
+          <NavLink exact to='/language' className='btn btn-outline-secondary btn-sm float-left'>Back to Language</NavLink>
+        </Card.Footer>
+      </Card>
+    </div>
+  );
+
 
 }
+
+
 
 export default EditLanguage;
