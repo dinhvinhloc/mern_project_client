@@ -61,7 +61,7 @@ const Project = () => {
   }
 
   const handleValueChange = (e) => {
-    setProjectState({ [e.target.name]: e.target.value });
+    setProjectState({...projectState, [e.target.name]: e.target.value });
   };
 
   const onDeleteHandler = (id) => {
