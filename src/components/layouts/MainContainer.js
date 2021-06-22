@@ -22,7 +22,6 @@ import EditExperience from '../pages/Experience/EditExperience';
 import Skill from '../pages/Skill/Skill';
 import AddSkill from '../pages/Skill/AddSkill';
 import EditSkill from '../pages/Skill/EditSkill';
-import DeleteSkill from '../pages/Skill/DeleteSkill';
 
 import Language from '../pages/Language/Language';
 import AddLanguage from '../pages/Language/AddLanguage';
@@ -110,7 +109,6 @@ function MainContainer() {
             <LoggedInRoute path='/skill' exact component={Skill} />
             <LoggedInRoute path='/skill/add' exact component={AddSkill} />
             <LoggedInRoute path='/skill/edit/:id' exact component={EditSkill} />
-            <LoggedInRoute path='/skill/delete/:id' exact component={DeleteSkill} />
             <LoggedInRoute path='/language' exact component={Language} />
             <LoggedInRoute path='/language/add' exact component={AddLanguage} />
             <LoggedInRoute path='/language/edit/:id' component={EditLanguage} />
