@@ -22,7 +22,6 @@ import EditExperience from '../pages/Experience/EditExperience';
 import Skill from '../pages/Skill/Skill';
 import AddSkill from '../pages/Skill/AddSkill';
 import EditSkill from '../pages/Skill/EditSkill';
-import DeleteSkill from '../pages/Skill/DeleteSkill';
 
 import Language from '../pages/Language/Language';
 import AddLanguage from '../pages/Language/AddLanguage';
@@ -40,11 +39,14 @@ import Hobby from '../pages/Hobby/Hobby';
 import AddHobby from '../pages/Hobby/AddHobby';
 import EditHobby from '../pages/Hobby/EditHobby';
 
+import BuildResume from '../pages/BuildResume/BuildResume'
+
 import LoggedInRoute from './LoggedInRoute';
 import {
   FaInfo, FaUniversity, FaBuilding, FaTools,
   FaGlobe, FaProductHunt, FaIdCard, FaHome
 } from 'react-icons/fa';
+import {GiPuzzle} from 'react-icons/gi';
 import 'boxicons'
 
 
@@ -87,6 +89,9 @@ function MainContainer() {
                 <li>
                   <NavLink to='/hobby' className='nav-link'><i><FaIdCard /></i>Hobbies</NavLink>
                 </li>
+                <li>
+                  <NavLink to='/build-resume' className='nav-link'><i><GiPuzzle /></i>Build Resume</NavLink>
+                </li>
               </ul>
             </div>
           </nav>
@@ -104,7 +109,6 @@ function MainContainer() {
             <LoggedInRoute path='/skill' exact component={Skill} />
             <LoggedInRoute path='/skill/add' exact component={AddSkill} />
             <LoggedInRoute path='/skill/edit/:id' exact component={EditSkill} />
-            <LoggedInRoute path='/skill/delete/:id' exact component={DeleteSkill} />
             <LoggedInRoute path='/language' exact component={Language} />
             <LoggedInRoute path='/language/add' exact component={AddLanguage} />
             <LoggedInRoute path='/language/edit/:id' component={EditLanguage} />
@@ -120,6 +124,7 @@ function MainContainer() {
             <LoggedInRoute path='/hobby' exact component={Hobby} />
             <LoggedInRoute path='/hobby/add' exact component={AddHobby} />
             <LoggedInRoute path='/hobby/edit/:id' exact component={EditHobby} />
+            <LoggedInRoute path='/build-resume' exact component={BuildResume} />
           </main>
         </Row>
     </div>
