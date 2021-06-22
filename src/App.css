@@ -305,6 +305,12 @@ body{
   margin: auto;
 }
 
+.thumbView2 {
+  width: 720px;
+  height: 800px;
+  margin: auto;
+}
+
 .legend {
   font-weight: bolder;
 }
