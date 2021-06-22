@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
@@ -16,9 +16,9 @@ const breadcrumbLinks = [
   }
 ];
 
-class Skill extends Component {
+const Skill = () => { 
 
-  state = {
+  const [stateName, setState] = useState( {
     skills: [
       {
         "id": "1",
@@ -52,25 +52,25 @@ class Skill extends Component {
       },
     ],
     searchKeyword: ''
+  });
+
+  const onLoadData = () => {
+
   }
 
-  onLoadData() {
-
-  }
-
-  componentDidMount() {
+  const componentDidMount = () => {
     this.onLoadData();
   }
 
-  handleValueChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleValueChange = (e) => {
+    setState({ ...stateName, [e.target.name]: e.target.value });
   };
 
-  onDeleteHandler = (id) => {
+  const onDeleteHandler = (id) => {
 
   }
 
-  render(){
+ 
   return (<div className="bodyLayout">
 
 <Breadcrumbs links={breadcrumbLinks} />
@@ -83,14 +83,14 @@ class Skill extends Component {
             <Form className='float-left'>
               <Form.Row className="align-items-center">
                 <Col xs="auto">
-                  {/* <Form.Label srOnly>Skill</Form.Label> */}
+
                   <Form.Control
                     size="sm"
                     className="mb-4"
                     id="inlineFormInput"
                     placeholder="Skill"
                     name="searchKeyword"
-                    onChange={this.handleValueChange}
+                    onChange={handleValueChange}
                   />
                 </Col>
                 <Col xs="auto">
@@ -112,8 +112,8 @@ class Skill extends Component {
               </thead>
               <tbody>
                 {
-                  this.state.skills.map((skill, index) =>
-                    skill.name.toLowerCase().includes(this.state.searchKeyword.toLowerCase()) ?
+                  stateName.skills.map((skill, index) =>
+                    skill.name.toLowerCase().includes(stateName.searchKeyword.toLowerCase()) ?
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{skill.name}</td>
@@ -121,7 +121,7 @@ class Skill extends Component {
                         <td>{skill.description}</td>
                         <td className='text-center'>
                           <NavLink exact to={'/skill/edit/' + skill.id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
-                          <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => this.onDeleteHandler(skill.id)} /></NavLink>
+                          <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => onDeleteHandler(skill.id)} /></NavLink>
                         </td>
                       </tr> : ''
                   )
@@ -131,7 +131,7 @@ class Skill extends Component {
           </Card.Body>
         </Card>
 
-        </div>)};
+        </div>);
 };
 
 export default Skill;

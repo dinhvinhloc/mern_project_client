@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="441px" height="570px" text-rendering="geometricPrecision" style="margin:0 auto" baseProfile="full" version="1.1" viewBox="0 0 816 1055" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<style>text{fill:#000;font-size:15px;}
+			rect{stroke:#999;stroke-width:1;fill:transparent;}
+			.ffpl{font-family:"Century Gothic", Helvetica, sans-serif;}
+			.rectname{font-size:44px;}
+			.fwb{font-weight:bold;}
+			.disc{fill:black;}
+			.heading{fill:#222;font-size:16px;}
+			.subheading{fill:#222;font-size:14px;}
+			.name{fill:#4a4a4a;font-size:52px;letter-spacing: 4px;}
+			.address{fill:#999;font-size:15px;}
+			.summary-text{font-size:15px;}</style>
+</defs>
+<rect x="45" y="34" width="103" height="103"/>
+<text class="rectname ffpl" x="68" y="100">JC</text>
+<text class="name fwb ffpl" x="192" y="83">JESSICA CLAIRE</text>
+<text class="address ffpl" x="191" y="116">dsample@live.in
+<tspan x="316" y="116">|</tspan>
+<tspan x="333" y="116">H: 508-278-2542</tspan>
+<tspan x="456" y="116">|</tspan>
+<tspan x="476" y="116">C: 781-669-5989</tspan>
+</text>
+<text class="address ffpl" x="192" y="140">123 Main Street, San Francisco, CA 94122</text>
+<text class="heading ffpl fwb" x="39" y="194">PROFESSIONAL</text>
+<text class="heading ffpl fwb" x="74" y="212">SUMMARY</text>
+<text class="summary-text ffpl" x="191" y="194">
+<tspan>Accomplished Operations executive with a successful track record</tspan>
+<tspan x="191" dy="18">overseeing regional Marketing, IT, HR/training and property in company</tspan>
+<tspan x="191" dy="18">and franchise operations for a large chain of restaurants.</tspan>
+</text>
+<text class="heading ffpl fwb" x="106" y="283">SKILLS</text>
+<circle class="disc" cx="215" cy="278" r="3"/>
+<circle class="disc" cx="215" cy="296" r="3"/>
+<circle class="disc" cx="215" cy="352" r="3"/>
+<circle class="disc" cx="483" cy="278" r="3"/>
+<circle class="disc" cx="483" cy="315" r="3"/>
+<circle class="disc" cx="483" cy="352" r="3"/>
+<text class="ffpl" x="235" y="283">
+<tspan>Executive team leadership</tspan>
+<tspan x="235" dy="18">Multi-million pound P&amp;L</tspan>
+<tspan x="235" dy="18">management expertise for</tspan>
+<tspan x="235" dy="20">South East Region</tspan>
+<tspan x="235" dy="20">Client/vendor relations</tspan>
+</text>
+<text class="ffpl" x="503" y="283">
+<tspan>Marketing/product line</tspan>
+<tspan x="503" dy="19">development</tspan>
+<tspan x="503" dy="19">Staff/training policy</tspan>
+<tspan x="503" dy="18">development</tspan>
+<tspan x="503" dy="19">Process improvement</tspan>
+</text>
+<text class="heading ffpl fwb" x="39" y="409">WORK HISTORY</text>
+<text class="ffpl" x="192" y="408">
+<tspan class="fwb">District Manager</tspan>
+<tspan class="fwb" x="318" y="408">|</tspan>
+<tspan x="338" y="408">Verizon Wireless - San Francisco,</tspan>
+<tspan x="594" y="408">09/2009- CURRENT</tspan>
+<tspan x="192" y="428">CA</tspan>
+</text>
+<circle class="disc" cx="215" cy="448" r="3"/>
+<circle class="disc" cx="215" cy="504" r="3"/>
+<circle class="disc" cx="215" cy="541" r="3"/>
+<circle class="disc" cx="215" cy="578" r="3"/>
+<circle class="disc" cx="215" cy="616" r="3"/>
+<circle class="disc" cx="215" cy="654" r="3"/>
+<text class="ffpl" x="235" y="453">
+<tspan>Directed recruitment/training/staff development initiatives to</tspan>
+<tspan x="235" dy="17">maximize productivity and revenue potential through development</tspan>
+<tspan x="235" dy="20">of a sales team.</tspan>
+<tspan x="235" dy="19">Successfully increased employee retention by creating a positive</tspan>
+<tspan x="235" dy="19">work environment in 18 stores.</tspan>
+<tspan x="235" dy="19">Administered daily operations to ensure policies were adhered to</tspan>
+<tspan x="235" dy="18">and understood by sales staff.</tspan>
+<tspan x="235" dy="18">Cultivated strong business relationships with customers to drive</tspan>
+<tspan x="235" dy="19">business development.</tspan>
+<tspan x="235" dy="19">Planned and executed floor merchandising initiatives in</tspan>
+<tspan x="235" dy="18">collaboration with merchandise management.</tspan>
+<tspan x="235" dy="18">Ensure store is prepared for internal audits through</tspan>
+<tspan x="235" dy="18">analysis/preparation of quality assurance and Inventory statistics.</tspan>
+</text>
+<text class="ffpl" x="192" y="716">
+<tspan class="fwb">Operations manager</tspan>
+<tspan x="350" y="716">|</tspan>
+<tspan x="370" y="715">Walgreens, Inc - San</tspan>
+<tspan x="603" y="716">08/1997 - 09/2009</tspan>
+<tspan x="191" y="734">Francisco, CA</tspan>
+</text>
+<circle class="disc" cx="215" cy="754" r="3"/>
+<circle class="disc" cx="215" cy="792" r="3"/>
+<circle class="disc" cx="215" cy="829" r="3"/>
+<text class="ffpl" x="235" y="759">
+<tspan>Oversaw opening/closing operations for a $4 million annual revenue</tspan>
+<tspan x="235" dy="19">store in compliance with current company policies/procedures.</tspan>
+<tspan x="235" dy="19">Managed operational costs by spearheading inventory control and</tspan>
+<tspan x="235" dy="36">Administered financial processes including accounts</tspan>
+<tspan x="235" dy="18">payable/accounts receivable, managing an accounting office and</tspan>
+<tspan x="235" dy="19">updating customer service files.</tspan>
+</text>
+<text class="ffpl" x="235" y="815" textLength="500">leading shipping department activities as well as setting wage targets.</text>
+<text class="ffpl" x="61" y="923">
+<tspan class="heading ffpl fwb">EDUCATION</tspan>
+<tspan x="192" dy="0">San Francisco University, San Francisco, CA</tspan>
+<tspan x="696" dy="0">2009</tspan>
+<tspan class="fwb" x="192" dy="25">Master of Business Administration:</tspan>
+<tspan x="434" dy="0">Operations Management Speech and</tspan>
+<tspan x="192" dy="19">Communication, Sociology and Psychology</tspan>
+<tspan x="192" dy="25">Operations Management Speech and Communication, Sociology and</tspan>
+<tspan x="192" dy="19">Psychology</tspan>
+</text>
+</svg>
