@@ -48,7 +48,7 @@ const Language = () => {
   }
 
   const handleValueChange = (e) => {
-    setLanguageState({ [e.target.name]: e.target.value });
+    setLanguageState({...languageState,  [e.target.name]: e.target.value });
   };
 
   const onDeleteHandler = (id) => {
