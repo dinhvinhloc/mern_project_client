@@ -1,35 +1,94 @@
-import React from 'react';
+
+import React, {Component} from 'react';
+import Breadcrumbs from '../../layouts/Breadcrumbs';
+import { Button, Card, Form, Alert } from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 
-const AddExperience = () => {
-  return <div className="bodyLayout">
-  <h3>Add Experience page</h3>
-  <table className='skillTable'>
-    <tr>
-      <td className='skillTableTd'>Start Year</td>
-      <td><input type="text" className="skillTextfield" name="StartYear" placeholder="2021"/></td>
-    </tr>
-    <tr>
-      <td className='skillTableTd'>End Year</td>
-      <td><input type="text" className="skillTextfield" name="EndYear" placeholder="2021"/></td>
-    </tr>
-    <tr>
-      <td className='skillTableTd'>Company Name</td>
-      <td><input type="text" className="skillTextfield" name="cName" placeholder="Infosys"/></td>
-    </tr>
-    <tr>
-      <td className='skillTableTd'>Position</td>
-      <td><input type="text" className="skillTextfield" name="position" placeholder="ITS"/></td>
-    </tr>
-    <tr>
-      <td className='skillTableTd'>Description</td>
-      <td><textarea rows="2" cols="25" className="skillTextfield" name="desp" placeholder="Worked as a Web-Developer"/></td>
-    </tr>
-  </table>
-   
-  <NavLink to="/experience" className="myButton">Save</NavLink>
-</div>;
-};
 
+const breadcrumbLinks = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Experience',
+    path: '/experience',
+  },
+  {
+    label: 'New Experience',
+    path: '/experience/add',
+    active: true
+  }
+];
+
+
+
+class AddExperience extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      messageVariant: 'danger',
+      hasMessage: false,
+      messageInfo: '',
+    };
+  }
+
+  saveHandler = (e) => {
+
+
+  }
+
+  handleValueChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  render() {
+    return (
+      <div>
+        <Breadcrumbs links={breadcrumbLinks} />
+        {  
+          this.state.hasMessage ? <Alert variant={this.state.messageVariant}>{this.state.messageInfo}</Alert> : ''
+        }
+        <Card
+          bg='light'
+          text='dark'
+        >
+          <Card.Header>New Experience</Card.Header>
+          <Card.Body>
+            <Form>
+              <Form.Group>
+                <Form.Label>Start Year</Form.Label>
+                <Form.Control size='sm' type="text" name='syear' placeholder="2021" onChange={this.handleValueChange} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>End Year</Form.Label>
+                <Form.Control size='sm' type="text" name='eyear' placeholder="2021" onChange={this.handleValueChange} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Company Name</Form.Label>
+                <Form.Control size='sm' type="text" name='compName' placeholder="Humber College" onChange={this.handleValueChange} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Position</Form.Label>
+                <Form.Control size='sm' type="text" name='position' placeholder="ITS" onChange={this.handleValueChange} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Description</Form.Label>
+                <Form.Control size='sm' as="textarea" rows="8" name='description' onChange={this.handleValueChange} />
+              </Form.Group>
+            </Form>
+          </Card.Body>
+          <Card.Footer>
+            <Button size='sm' onClick={this.saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
+            <NavLink exact to='/experience' className='btn btn-outline-secondary btn-sm float-left'>Back to Experience</NavLink>
+          </Card.Footer>
+        </Card>
+      </div>
+    );
+  }
+
+};
 
 export default AddExperience;

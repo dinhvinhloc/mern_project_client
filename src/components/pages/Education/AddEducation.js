@@ -1,30 +1,90 @@
-import React from 'react';
+
+import React, {Component} from 'react';
+import Breadcrumbs from '../../layouts/Breadcrumbs';
+import { Button, Card, Form, Alert } from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 
-const AddEducation = () => {
-  return <div className="bodyLayout">
-  <h3>Add Education page</h3>
-  <table className='skillTable'>
-    <tr>
-      <td className='skillTableTd'>Eduction Start Year</td>
-      <td><input type="text" className="skillTextfield" name="edStartYear" placeholder="2021"/></td>
-    </tr>
-    <tr>
-      <td className='skillTableTd'>Eduction End Year</td>
-      <td><input type="text" className="skillTextfield" name="edEndYear" placeholder="2021"/></td>
-    </tr>
-    <tr>
-      <td className='skillTableTd'>Institute Name</td>
-      <td><input type="text" className="skillTextfield" name="inName" placeholder="Humber College"/></td>
-    </tr>
-    <tr>
-      <td className='skillTableTd'>Course Name</td>
-      <td><input type="text" className="skillTextfield" name="csName" placeholder="ITS"/></td>
-    </tr>
-  </table>
-   
-  <NavLink to="/education" className="myButton">Save</NavLink>
-</div>;
+
+const breadcrumbLinks = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Education',
+    path: '/education',
+  },
+  {
+    label: 'New Education',
+    path: '/education/add',
+    active: true
+  }
+];
+
+
+
+class AddEducation extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      messageVariant: 'danger',
+      hasMessage: false,
+      messageInfo: '',
+    };
+  }
+
+  saveHandler = (e) => {
+
+
+  }
+
+  handleValueChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  render() {
+    return (
+      <div>
+        <Breadcrumbs links={breadcrumbLinks} />
+        {  
+          this.state.hasMessage ? <Alert variant={this.state.messageVariant}>{this.state.messageInfo}</Alert> : ''
+        }
+        <Card
+          bg='light'
+          text='dark'
+        >
+          <Card.Header>New Education</Card.Header>
+          <Card.Body>
+            <Form>
+              <Form.Group>
+                <Form.Label>Eduction Start Year</Form.Label>
+                <Form.Control size='sm' type="text" name='syear' placeholder="2021" onChange={this.handleValueChange} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Eduction End Year</Form.Label>
+                <Form.Control size='sm' type="text" name='eyear' placeholder="2021" onChange={this.handleValueChange} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Institue Name</Form.Label>
+                <Form.Control size='sm' type="text" name='instName' placeholder="Humber College" onChange={this.handleValueChange} />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Course Name</Form.Label>
+                <Form.Control size='sm' type="text" name='cName' placeholder="ITS" onChange={this.handleValueChange} />
+              </Form.Group>
+            </Form>
+          </Card.Body>
+          <Card.Footer>
+            <Button size='sm' onClick={this.saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
+            <NavLink exact to='/education' className='btn btn-outline-secondary btn-sm float-left'>Back to Education</NavLink>
+          </Card.Footer>
+        </Card>
+      </div>
+    );
+  }
+
 };
 
 export default AddEducation;
