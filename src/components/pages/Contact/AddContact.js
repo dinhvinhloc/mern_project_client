@@ -35,7 +35,6 @@ const AddContact = () => {
                   <Form.Control
                   size='sm' type='email' name='email'
                   placeholder='Enter your email'
-                  value={email}
                   onChange={handleChangeEmail} />
                 </Col>
                 <Col>
@@ -43,7 +42,6 @@ const AddContact = () => {
                   <Form.Control
                   size='sm' type='text' name='phone'
                   placeholder='Enter your phone'
-                  value={phone}
                   onChange={handleChangePhone} />
                 </Col>
               </Form.Row>

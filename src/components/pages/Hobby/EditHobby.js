@@ -5,6 +5,7 @@ import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
 
 
 const EditHobby = () => {
+  const [typeList, setTypeList] = useState(['Hobby', 'Interest']);
   const [hobbyName, setHobbyName] = useState('');
   const [type, setType] = useState('');
 
@@ -22,8 +23,8 @@ const EditHobby = () => {
 
   return <div>
     <Card
-          bg='light'
-          text='dark'
+        bg='light'
+        text='dark'
       >
         <Card.Header>Edit Hobbies or Interests</Card.Header>
         <Card.Body>
@@ -41,10 +42,18 @@ const EditHobby = () => {
                 <Col>
                   <Form.Label>Type:</Form.Label>
                   <Form.Control
-                    size='sm' type='text' name='type'
-                    placeholder='Type'
+                    as='select'
+                    size='sm' name='type'
                     value={type}
-                    onChange={handleChangeType} />
+                    onChange={handleChangeType} >
+                      <option value='' key='-1'>--- Please select type ---</option>
+                      {
+                        typeList.map((value, index) => (
+                          <option value={value} key={index}>{value}</option>
+                        ))
+                      }
+
+                  </Form.Control>
                 </Col>
               </Form.Row>
             </Form.Group>

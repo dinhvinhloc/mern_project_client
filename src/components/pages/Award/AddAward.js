@@ -33,7 +33,6 @@ const AddAward = () => {
                   <Form.Control
                   size='sm' type='text' name='title'
                   placeholder='Enter your award title'
-                  value={title}
                   onChange={handleChangeTitle} />
                 </Col>
                 <Col>
@@ -41,7 +40,6 @@ const AddAward = () => {
                   <Form.Control
                   size='sm' type='text' name='date'
                   placeholder='MM/YEAR'
-                  value={date}
                   onChange={handleChangeDate} />
                 </Col>
               </Form.Row>

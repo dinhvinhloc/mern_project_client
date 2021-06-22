@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
 
 const AddHobby = () => {
+  const [typeList, setTypeList] = useState(['Hobby', 'Interest']);
   const [hobbyName, setHobbyName] = useState('');
   const [type, setType] = useState('');
 
@@ -34,16 +35,23 @@ const AddHobby = () => {
                   <Form.Control
                   size='sm' type='text' name='hobbyName'
                   placeholder='Enter your hobby name'
-                  value={hobbyName}
                   onChange={handleChangeHobbyName} />
                 </Col>
                 <Col>
                   <Form.Label>Type:</Form.Label>
                   <Form.Control
-                  size='sm' type='text' name='type'
-                  placeholder='Type'
-                  value={type}
-                  onChange={handleChangeType} />
+                    as='select'
+                    size='sm' name='type'
+                    value={type}
+                    onChange={handleChangeType} >
+                      <option value='' key='-1'>--- Please select type ---</option>
+                      {
+                        typeList.map((value, index) => (
+                          <option value={value} key={index}>{value}</option>
+                        ))
+                      }
+
+                  </Form.Control>
                 </Col>
               </Form.Row>
             </Form.Group>
