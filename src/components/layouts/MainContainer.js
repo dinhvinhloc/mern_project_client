@@ -55,8 +55,8 @@ import 'boxicons'
 function MainContainer() {
   return (
     <div>
-      <Header />
-        <Row>
+      
+        <div>
 
           <nav id="sidebarMenu" className="col-md-3 col-lg-1 d-md-block sidebar collapse">
             <div className="sidebar-sticky pt-3">
@@ -97,7 +97,9 @@ function MainContainer() {
               </ul>
             </div>
           </nav>
-          <main role='main' className='col-md-9 ml-sm-auto col-lg-10 px-md-4'>
+          <div className="main-area">
+          <Header />
+          <main role='main' className='col-md-9 ml-sm-auto col-lg-10 px-md-4 wrapper'>
             <LoggedInRoute path='/' exact component={Home} />
             <LoggedInRoute path='/about-me' exact component={AboutMe} />
             <LoggedInRoute path='/about-me/edit' exact component={EditAboutMe} />
@@ -128,7 +130,8 @@ function MainContainer() {
             <LoggedInRoute path='/hobby/edit/:id' exact component={EditHobby} />
             <LoggedInRoute path='/build-resume' exact component={BuildResume} />
           </main>
-        </Row>
+          </div>
+        </div>
     </div>
   );
 }
