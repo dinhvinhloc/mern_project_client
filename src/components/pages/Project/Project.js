@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
+import * as projectServices from './../../../services/projectServices';
+import LocalStorageService from './../../../utils/localStorage';
+
 
 const breadcrumbLinks = [
   {
@@ -21,44 +24,34 @@ const Project = () => {
 
   const [projectState, setProjectState] = useState(
     {
-      projects: [
-        {
-          "id": "1",
-          "name": "Java",
-          "description": "Java developer",
-        },
-        {
-          "id": "2",
-          "name": "C#",
-          "description": "C# developer",
-        },
-        {
-          "id": "3",
-          "name": "Python",
-          "description": "Python developer",
-        },
-        {
-          "id": "4",
-          "name": ".Net",
-          "description": ".Net developer",
-        },
-        {
-          "id": "5",
-          "name": "GoLang",
-          "description": "GoLang developer",
-        },
-      ],
+      projects: [],
       searchKeyword: ''
     }
   )
 
-  const onLoadData = () => {
+  const sendGetRequest = async () => {
+    try {
+      
+      const userInfo = LocalStorageService.getUserInfo();
+      const payload = { userId: userInfo.userId };
+      
+      projectServices.getAllProjects(payload)
+      .then(function(response) {
+          console.log(response.data)
+          setProjectState({
+            ...projectState, projects: response.data
+          });     
+      })
+      
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    sendGetRequest();
+  }, []);
 
-  }
-
-  const  componentDidMount = () =>  {
-    onLoadData();
-  }
 
   const handleValueChange = (e) => {
     setProjectState({...projectState, [e.target.name]: e.target.value });
@@ -114,8 +107,8 @@ const Project = () => {
                       <td>{project.name}</td>
                       <td>{project.description}</td>
                       <td className='text-center'>
-                        <NavLink exact to={'/project/edit/' + project.id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
-                        <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => onDeleteHandler(project.id)} /></NavLink>
+                        <NavLink exact to={'/project/edit/' + project._id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
+                        <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => onDeleteHandler(project._id)} /></NavLink>
                       </td>
                     </tr> : ''
                 )
