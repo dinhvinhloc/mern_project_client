@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { isLogin } from './../../services/authServices';
+import LocalStorageService from './../../utils/localStorage';
 
-const loggedin = false;
 function Header() {
 
     const logout = () => {
-        alert("User logged out!!")
+        LocalStorageService.deleteUserInfo();
     }
 
     return (
@@ -17,8 +18,9 @@ function Header() {
                 </button>
                 <ul className="navbar-nav px-3">
                     <li className="nav-item text-nowrap">
-                            { !loggedin && <NavLink exact to='/login' className='nav-link'>Login</NavLink>}
-                            { loggedin &&<NavLink exact to='/login' onClick={logout} className='nav-link'>Logout</NavLink>}
+                    {isLogin() == null ?
+                        (<NavLink exact to='/login' className='nav-link'>Login</NavLink>)
+                        : (<NavLink exact to='/login' onClick={logout} className='nav-link'>Logout</NavLink>)}
                     </li>
                 </ul>
             </nav>
