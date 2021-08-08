@@ -2,7 +2,7 @@ class LocalStorageService {
     getAccessToken() {
         const auth = this.getUserInfo();
         if (auth != null) {
-            return auth.accessToken;
+            return auth.token;
         }
     }
 

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Button, Card, Form, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import * as projectServices from '../../../services/projectServices';
+import { useHistory } from 'react-router-dom';
 
 const breadcrumbLinks = [
   {
@@ -21,28 +23,50 @@ const breadcrumbLinks = [
 ];
 
 const AddProject = () => {
-  const [state, setState] = useState(
+  
+  const history = useHistory();
+  const [payload, setPayload] = useState({
+    name:'',
+    description:''
+  })
+  
+  const [error, setError] = useState(
     {
       messageVariant: 'danger',
-      hasMessage: false,
-      messageInfo: '',
+      message: '',
     }
   )
 
   const saveHandler = (e) => {
-
-
+    
+    
+    projectServices.addProject(payload)
+      .then(response => {
+        console.log(response.data);
+        history.push('/project')
+      })
+      .catch((error) => {
+        let errorMessage = []
+        error.errors.forEach(error =>{
+          errorMessage.push(error.param + ": " + error.msg)
+        })
+        
+        setError({
+          messageVariant: 'danger',
+          message: errorMessage.join(),
+        });
+      });
   }
 
   const handleValueChange = (e) => {
-    setState({ [e.target.name]: e.target.value });
+    setPayload({...payload, [e.target.name]: e.target.value });
   };
 
   return (
     <div>
       <Breadcrumbs links={breadcrumbLinks} />
       {  
-        state.hasMessage ? <Alert variant={state.messageVariant}>{state.messageInfo}</Alert> : ''
+        error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''
       }
       <Card
         bg='light'
