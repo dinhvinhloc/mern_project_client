@@ -9,9 +9,9 @@ export function getAllProjects(payload) {
 }
 
 export function deleteProject(projectId) {
-    return axios.delete(`${PROJECT_DETAIL_ENDPOINT}`, {
+    return axios.delete(`${PROJECT_DETAIL_ENDPOINT}`, {data: {
         id: projectId
-    });
+    }});
 }
 
 export function addProject(payload) {

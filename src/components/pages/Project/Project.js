@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
 import * as projectServices from './../../../services/projectServices';
 import LocalStorageService from './../../../utils/localStorage';
-
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';  
 
 const breadcrumbLinks = [
   {
@@ -31,18 +32,18 @@ const Project = () => {
 
   const sendGetRequest = async () => {
     try {
-      
+
       const userInfo = LocalStorageService.getUserInfo();
       const payload = { userId: userInfo.userId };
-      
+
       projectServices.getAllProjects(payload)
-      .then(function(response) {
+        .then(function (response) {
           console.log(response.data)
           setProjectState({
             ...projectState, projects: response.data
-          });     
-      })
-      
+          });
+        })
+
     } catch (err) {
       // Handle Error Here
       console.error(err);
@@ -54,11 +55,30 @@ const Project = () => {
 
 
   const handleValueChange = (e) => {
-    setProjectState({...projectState, [e.target.name]: e.target.value });
+    setProjectState({ ...projectState, [e.target.name]: e.target.value });
   };
 
   const onDeleteHandler = (id) => {
-
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            projectServices.deleteProject(id).then(response => {
+              sendGetRequest();
+            })
+              .catch((error) => {
+                console.log('Delete project: ' + error);
+              });
+          }
+        },
+        {
+          label: 'No'
+        }
+      ]
+    });
   }
   return (
     <div>
@@ -87,7 +107,6 @@ const Project = () => {
               </Col>
             </Form.Row>
           </Form>
-          {/* <NavLink exact to='/project/add' className='btn btn-sm btn-outline-secondary float-right'>New Project</NavLink> */}
           <NavLink exact to='/project/add' className='myButton'>Add Project</NavLink>
           <Table bordered hover>
             <thead>
