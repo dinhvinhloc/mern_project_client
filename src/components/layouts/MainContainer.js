@@ -5,6 +5,7 @@ import Header from './Header';
 import Home from '../pages/Home/Home';
 import AboutMe from '../pages/AboutMe/AboutMe';
 import EditAboutMe from '../pages/AboutMe/EditAboutMe'
+import AddAboutMe from '../pages/AboutMe/AddAboutMe'
 
 import Contact from '../pages/Contact/Contact';
 import AddContact from '../pages/Contact/AddContact';
@@ -102,7 +103,8 @@ function MainContainer() {
           <main role='main' className='col-md-9 ml-sm-auto col-lg-10 px-md-4 wrapper'>
             <LoggedInRoute path='/' exact component={Home} />
             <LoggedInRoute path='/about-me' exact component={AboutMe} />
-            <LoggedInRoute path='/about-me/edit' exact component={EditAboutMe} />
+            <LoggedInRoute path='/about-me/edit/:id' exact component={EditAboutMe} />
+            <LoggedInRoute path='/about-me/add' exact component={AddAboutMe} />
             <LoggedInRoute path='/education' exact component={Education} />
             <LoggedInRoute path='/education/add' exact component={AddEducation} />
             <LoggedInRoute path='/education/edit/:id' exact component={EditEducation} />

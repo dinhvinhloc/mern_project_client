@@ -1,4 +1,5 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
+import {useState} from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Button, Card, Form, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
@@ -6,52 +7,30 @@ import * as aboutmeServices from '../../../services/aboutmeServices';
 import { useHistory } from 'react-router-dom';
 
 const breadcrumbLinks = [
-    {
-      label: 'Home',
-      path: '/'
-    },
-    {
-      label: 'Aboutme',
-      path: '/about-me',
-    },
-    {
-      label: 'Edit Aboutme',
-      active: true
-    }
-  ];
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Aboutme',
+    path: '/about-me',
+  },
+  {
+    label: 'New Aboutme',
+    path: '/about-me/add',
+    active: true
+  }
+];
 
-const EditAboutMe = (props) => {
 
-    const history = useHistory();
 
+const AddAboutMe = () => {
+
+  const history = useHistory();
   const [payload, setPayload] = useState({
-    id: '',
-    info: ''
+    info:''
   })
-
-  const sendGetRequest = async () => {
-    try {
-
-      console.log(payload.id)
-      aboutmeServices.detailAboutme(props.match.params.id)
-        .then(function (response) {
-          console.log(response.data)
-          setPayload({
-            id: response.data._id, info: response.data.info
-          });
-        })
-
-    } catch (err) {
-      // Handle Error Here
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    sendGetRequest();
-  }, []);
-
-
-
+  
   const [error, setError] = useState(
     {
       messageVariant: 'danger',
@@ -60,18 +39,21 @@ const EditAboutMe = (props) => {
   )
 
   const saveHandler = (e) => {
-
-    aboutmeServices.updateAboutme(payload)
+    
+    
+    aboutmeServices.addAboutme(payload)
       .then(response => {
         console.log(response.data);
         history.push('/about-me')
       })
       .catch((error) => {
-        let errorMessage = []
-        error.errors.forEach(error => {
+        let errorMessage = [];
+        
+        error.errors.forEach(error =>{ 
           errorMessage.push(error.param + ": " + error.msg)
+        
         })
-
+        
         setError({
           messageVariant: 'danger',
           message: errorMessage.join(),
@@ -80,7 +62,7 @@ const EditAboutMe = (props) => {
   }
 
   const handleValueChange = (e) => {
-    setPayload({ ...payload, [e.target.name]: e.target.value });
+    setPayload({...payload, [e.target.name]: e.target.value });
   };
 
   return (
@@ -93,12 +75,12 @@ const EditAboutMe = (props) => {
         bg='light'
         text='dark'
       >
-        <Card.Header>Edit Aboutme</Card.Header>
+        <Card.Header>New AboutMe</Card.Header>
         <Card.Body>
           <Form>
             <Form.Group>
-              <Form.Label>Info</Form.Label>
-              <Form.Control size='sm' as="textarea" rows="10" cols="60" name='info' value={payload.info} onChange={handleValueChange} />
+              <Form.Label>About Me</Form.Label>
+              <Form.Control size='sm' as="textarea" rows="10" cols="60" name='info' placeholder="Enter aboutme info" onChange={handleValueChange} />
             </Form.Group>
           </Form>
         </Card.Body>
@@ -109,6 +91,8 @@ const EditAboutMe = (props) => {
       </Card>
     </div>
   );
+  
+
 }
 
-export default EditAboutMe;
+export default AddAboutMe;
