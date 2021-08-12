@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
-
+import * as languageServices from './../../../services/languageServices';
+import LocalStorageService from './../../../utils/localStorage';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';  
 
 
 const breadcrumbLinks = [
@@ -22,37 +25,62 @@ const Language = () => {
 
   const [languageState, setLanguageState] = useState (
     {
-      languages: [
-          {
-            "id": "1",
-            "language": "English",
-            "level": "CLB7",
-          },
-          {
-            "id": "2",
-            "language": "French",
-            "level": "CLB5",
-          },
-        ],
+      languages: [],
       searchKeyword: ''
       }
 
 
   )
 
-  const onLoadData = () => {
+  const sendGetRequest = async () => {
+    try {
 
-  }
+      const userInfo = LocalStorageService.getUserInfo();
+      const payload = { userId: userInfo.userId };
 
-  const componentDidMount = () => {
-  }
+      languageServices.getAllLanguages(payload)
+        .then(function (response) {
+          console.log(response.data)
+          setLanguageState({
+            ...languageState, languages: response.data
+          });
+        })
+
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    sendGetRequest();
+  }, []);
 
   const handleValueChange = (e) => {
     setLanguageState({...languageState,  [e.target.name]: e.target.value });
   };
 
   const onDeleteHandler = (id) => {
-
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            languageServices.deleteLanguage(id).then(response => {
+              sendGetRequest();
+            })
+              .catch((error) => {
+                console.log('Delete language: ' + error);
+              });
+          }
+        },
+        {
+          label: 'No'
+        }
+      ]
+    });
   }
 
   return (
@@ -102,8 +130,8 @@ const Language = () => {
                       <td>{lang.language}</td>
                       <td>{lang.level}</td>
                       <td className='text-center'>
-                        <NavLink exact to={'/language/edit/' + lang.id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
-                        <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => onDeleteHandler(lang.id)} /></NavLink>
+                        <NavLink exact to={'/language/edit/' + lang._id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
+                        <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => onDeleteHandler(lang._id)} /></NavLink>
                       </td>
                     </tr> : ''
                 )
