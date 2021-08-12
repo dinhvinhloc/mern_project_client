@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import * as languageServices from '../../../services/languageServices';
+import { useHistory } from 'react-router-dom';
 
-const Levels = ['CLB 4','CLB 5','CLB 6','CLB 7','CLB 8','CLB 9','CLB 10',];
+const Levels = ['CLB 4','CLB 5','CLB 6','CLB 7','CLB 8','CLB 9','CLB 10','N1','N2','N3','N4','N5'];
 
 const breadcrumbLinks = [
   {
@@ -23,27 +25,49 @@ const breadcrumbLinks = [
 
 
 const AddLanguage = () => {
-  const [state, setState] = useState(
+  const history = useHistory();
+  const [payload, setPayload] = useState({
+    language:'',
+    level:''
+  })
+  
+  const [error, setError] = useState(
     {
       messageVariant: 'danger',
-      hasMessage: false,
-      messageInfo: ''
+      message: '',
     }
   )
 
   const saveHandler = (e) => {
     
+    
+    languageServices.addLanguage(payload)
+      .then(response => {
+        console.log(response.data);
+        history.push('/language')
+      })
+      .catch((error) => {
+        let errorMessage = []
+        error.errors.forEach(error =>{
+          errorMessage.push(error.param + ": " + error.msg)
+        })
+        
+        setError({
+          messageVariant: 'danger',
+          message: errorMessage.join(),
+        });
+      });
   }
 
   const handleValueChange = (e) => {
-    setState({ [e.target.name]: e.target.value });
+    setPayload({...payload, [e.target.name]: e.target.value });
   };
 
   return (
     <div>
       <Breadcrumbs links={breadcrumbLinks} />
       {  
-        state.hasMessage ? <Alert variant={state.messageVariant}>{state.messageInfo}</Alert> : ''
+        error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''
       }
       <Card
         bg='light'

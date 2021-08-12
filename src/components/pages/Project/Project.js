@@ -87,7 +87,7 @@ const Project = () => {
         bg='light'
         text='dark'
       >
-        <Card.Header>Project</Card.Header>
+        <Card.Header>Projects</Card.Header>
         <Card.Body>
           <Form className='float-left'>
             <Form.Row className="align-items-center">
