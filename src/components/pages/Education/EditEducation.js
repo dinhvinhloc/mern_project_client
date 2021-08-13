@@ -1,7 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Button, Card, Form, Alert } from 'react-bootstrap';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import * as projectServices from '../../../services/educationServices';
+import { useHistory } from 'react-router-dom';
 
 
 const breadcrumbLinks = [
@@ -15,40 +18,83 @@ const breadcrumbLinks = [
   },
   {
     label: 'Edit Education',
-    path: '/education/edit',
     active: true
   }
 ];
 
 
 
-class EditEducation extends Component {
+const EditEducation = (props) => {
 
-  constructor() {
-    super();
+  const history = useHistory();
 
-    this.state = {
+  const [payload, setPayload] = useState({
+    id: '',
+    syear:'',
+    eyear:'',
+    iname:'',
+    cname:''
+  })
+
+  const sendGetRequest = async () => {
+    try {
+
+      console.log(payload.id)
+      projectServices.detailEducation(props.match.params.id)
+        .then(function (response) {
+          console.log(response.data)
+          setPayload({
+            id: response.data._id, syear: response.data.syear, eyear: response.data.eyear, iname: response.data.iname, cname: response.data.cname
+          });
+        })
+
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    sendGetRequest();
+  }, []);
+
+  const [error, setError] = useState(
+    {
       messageVariant: 'danger',
-      hasMessage: false,
-      messageInfo: '',
-    };
+      message: '',
+    }
+  )
+
+  const saveHandler = (e) => {
+
+    projectServices.updateEducation(payload)
+      .then(response => {
+        console.log(response.data);
+        history.push('/education')
+      })
+      .catch((error) => {
+        let errorMessage = []
+        error.errors.forEach(error => {
+          errorMessage.push(error.param + ": " + error.msg)
+        })
+
+        setError({
+          messageVariant: 'danger',
+          message: errorMessage.join(),
+        });
+      });
+
   }
 
-  saveHandler = (e) => {
-
-
-  }
-
-  handleValueChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleValueChange = (e) => {
+    setPayload({ ...payload, [e.target.name]: e.target.value });
   };
 
-  render() {
+ 
     return (
       <div>
         <Breadcrumbs links={breadcrumbLinks} />
         {  
-          this.state.hasMessage ? <Alert variant={this.state.messageVariant}>{this.state.messageInfo}</Alert> : ''
+        error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''
         }
         <Card
           bg='light'
@@ -59,24 +105,24 @@ class EditEducation extends Component {
             <Form>
               <Form.Group>
                 <Form.Label>Eduction Start Year</Form.Label>
-                <Form.Control size='sm' type="text" name='syear' placeholder="2021" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='syear' placeholder="2021" onChange={handleValueChange}  value={payload.syear}/>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Eduction End Year</Form.Label>
-                <Form.Control size='sm' type="text" name='eyear' placeholder="2021" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='eyear' placeholder="2021" onChange={handleValueChange} value={payload.eyear}/>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Institue Name</Form.Label>
-                <Form.Control size='sm' type="text" name='instName' placeholder="Humber College" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='iname' placeholder="Humber College" onChange={handleValueChange} value={payload.iname} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Course Name</Form.Label>
-                <Form.Control size='sm' type="text" name='cName' placeholder="ITS" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='cname' placeholder="ITS" onChange={handleValueChange} value={payload.cname}/>
               </Form.Group>
             </Form>
           </Card.Body>
           <Card.Footer>
-            <Button size='sm' onClick={this.saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
+            <Button size='sm' onClick={saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
             <NavLink exact to='/education' className='btn btn-outline-secondary btn-sm float-left'>Back to Education</NavLink>
           </Card.Footer>
         </Card>
@@ -84,6 +130,6 @@ class EditEducation extends Component {
     );
   }
 
-};
+
 
 export default EditEducation;

@@ -1,8 +1,11 @@
 
-import React, {Component} from 'react';
+import React from 'react';
+import { useState } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Button, Card, Form, Alert } from 'react-bootstrap';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import * as projectServices from '../../../services/educationServices';
+import { useHistory } from 'react-router-dom';
 
 
 const breadcrumbLinks = [
@@ -23,33 +26,53 @@ const breadcrumbLinks = [
 
 
 
-class AddEducation extends Component {
+const AddEducation = () => {
 
-  constructor() {
-    super();
-
-    this.state = {
+  const history = useHistory();
+  const [payload, setPayload] = useState({
+    syear:'',
+    eyear:'',
+    iname:'',
+    cname:''
+  })
+  
+  const [error, setError] = useState(
+    {
       messageVariant: 'danger',
-      hasMessage: false,
-      messageInfo: '',
-    };
+      message: '',
+    }
+  )
+  
+  const saveHandler = (e) => {
+    projectServices.addEducation(payload)
+      .then(response => {
+        console.log(response.data);
+        history.push('/education')
+      })
+      .catch((error) => {
+        let errorMessage = []
+        error.errors.forEach(error =>{
+          errorMessage.push(error.param + ": " + error.msg)
+        })
+        
+        setError({
+          messageVariant: 'danger',
+          message: errorMessage.join(),
+        });
+      });
+
   }
 
-  saveHandler = (e) => {
-
-
-  }
-
-  handleValueChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleValueChange = (e) => {
+    setPayload({...payload, [e.target.name]: e.target.value });
   };
 
-  render() {
+  
     return (
       <div>
         <Breadcrumbs links={breadcrumbLinks} />
         {  
-          this.state.hasMessage ? <Alert variant={this.state.messageVariant}>{this.state.messageInfo}</Alert> : ''
+          error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''
         }
         <Card
           bg='light'
@@ -60,24 +83,24 @@ class AddEducation extends Component {
             <Form>
               <Form.Group>
                 <Form.Label>Eduction Start Year</Form.Label>
-                <Form.Control size='sm' type="text" name='syear' placeholder="2021" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='syear' placeholder="2021" onChange={handleValueChange} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Eduction End Year</Form.Label>
-                <Form.Control size='sm' type="text" name='eyear' placeholder="2021" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='eyear' placeholder="2021" onChange={handleValueChange} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Institue Name</Form.Label>
-                <Form.Control size='sm' type="text" name='instName' placeholder="Humber College" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='iname' placeholder="Humber College" onChange={handleValueChange} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Course Name</Form.Label>
-                <Form.Control size='sm' type="text" name='cName' placeholder="ITS" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='cname' placeholder="ITS" onChange={handleValueChange} />
               </Form.Group>
             </Form>
           </Card.Body>
           <Card.Footer>
-            <Button size='sm' onClick={this.saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
+            <Button size='sm' onClick={saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
             <NavLink exact to='/education' className='btn btn-outline-secondary btn-sm float-left'>Back to Education</NavLink>
           </Card.Footer>
         </Card>
@@ -85,6 +108,6 @@ class AddEducation extends Component {
     );
   }
 
-};
+
 
 export default AddEducation;

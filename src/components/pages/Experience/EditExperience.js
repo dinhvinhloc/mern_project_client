@@ -1,8 +1,10 @@
-
-import React, {Component} from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Button, Card, Form, Alert } from 'react-bootstrap';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import * as projectServices from '../../../services/experienceServices';
+import { useHistory } from 'react-router-dom';
 
 
 const breadcrumbLinks = [
@@ -23,33 +25,77 @@ const breadcrumbLinks = [
 
 
 
-class EditExperience extends Component {
+const EditExperience = (props) => {
 
-  constructor() {
-    super();
+  const history = useHistory();
+  const [payload, setPayload] = useState({
+  
+        syear: '',
+        eyear: '',
+        cname: '',
+        position : '',
+        description: ''
+  })
 
-    this.state = {
+   const sendGetRequest = async () => {
+    try {
+
+      console.log(payload.id)
+      projectServices.detailExperience(props.match.params.id)
+        .then(function (response) {
+          console.log(response.data)
+          setPayload({
+            id: response.data._id, syear: response.data.syear, eyear: response.data.eyear, cname: response.data.cname, position: response.data.position, description: response.data.description
+          });
+        })
+
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    sendGetRequest();
+  }, []);
+
+  const [error, setError] = useState(
+    {
       messageVariant: 'danger',
-      hasMessage: false,
-      messageInfo: '',
-    };
+      message: '',
+    }
+  )
+
+  const saveHandler = (e) => {
+
+    projectServices.updateExperience(payload)
+      .then(response => {
+        console.log(response.data);
+        history.push('/experience')
+      })
+      .catch((error) => {
+        let errorMessage = []
+        error.errors.forEach(error => {
+          errorMessage.push(error.param + ": " + error.msg)
+        })
+
+        setError({
+          messageVariant: 'danger',
+          message: errorMessage.join(),
+        });
+      });
+
   }
 
-  saveHandler = (e) => {
-
-
-  }
-
-  handleValueChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  const handleValueChange = (e) => {
+    setPayload({ ...payload, [e.target.name]: e.target.value });
   };
 
-  render() {
+  
     return (
       <div>
         <Breadcrumbs links={breadcrumbLinks} />
         {  
-          this.state.hasMessage ? <Alert variant={this.state.messageVariant}>{this.state.messageInfo}</Alert> : ''
+        error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''
         }
         <Card
           bg='light'
@@ -60,28 +106,28 @@ class EditExperience extends Component {
             <Form>
               <Form.Group>
                 <Form.Label>Start Year</Form.Label>
-                <Form.Control size='sm' type="text" name='syear' placeholder="2021" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='syear' placeholder="2021" onChange={handleValueChange} value={payload.syear} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>End Year</Form.Label>
-                <Form.Control size='sm' type="text" name='eyear' placeholder="2021" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='eyear' placeholder="2021" onChange={handleValueChange} value={payload.eyear}/>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Company Name</Form.Label>
-                <Form.Control size='sm' type="text" name='compName' placeholder="Humber College" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='cname' placeholder="Humber College" onChange={handleValueChange} value={payload.cname}/>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Position</Form.Label>
-                <Form.Control size='sm' type="text" name='position' placeholder="ITS" onChange={this.handleValueChange} />
+                <Form.Control size='sm' type="text" name='position' placeholder="ITS" onChange={handleValueChange} value={payload.position} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Description</Form.Label>
-                <Form.Control size='sm' as="textarea" rows="8" name='description' onChange={this.handleValueChange} />
+                <Form.Control size='sm' as="textarea" rows="8" name='description' onChange={handleValueChange} value={payload.description}/>
               </Form.Group>
             </Form>
           </Card.Body>
           <Card.Footer>
-            <Button size='sm' onClick={this.saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
+            <Button size='sm' onClick={saveHandler} variant="success" type="submit" className='float-right'>Save</Button>
             <NavLink exact to='/experience' className='btn btn-outline-secondary btn-sm float-left'>Back to Experience</NavLink>
           </Card.Footer>
         </Card>
@@ -89,6 +135,6 @@ class EditExperience extends Component {
     );
   }
 
-};
+
 
 export default EditExperience;

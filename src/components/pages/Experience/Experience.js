@@ -1,8 +1,12 @@
-import React, {Component} from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
+import * as projectServices from './../../../services/experienceServices';
+import LocalStorageService from './../../../utils/localStorage';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';  
 
 const breadcrumbLinks = [
   {
@@ -19,50 +23,72 @@ const breadcrumbLinks = [
   
 
 
-class Experience extends Component {
+const Experience = () => {
 
-  state = {
-    Experience: [
-      {
-        "id": "1",
-        "syear": "2020",
-        "eyear": "2021",
-        "cname": "Infosys",
-        "position": "web Developer",
-        "description":"Worked as a Webdeveloper",
-      },
-      {
-        "id": "1",
-        "syear": "2015",
-        "eyear": "2019",
-        "cname": "TCS",
-        "position": "Project Lead",
-        "description":"Worked as a Project Lead",
-      },
-      
-    ],
-    searchKeyword: ''
-    
-  }
+  const [experienceState, setExperienceState] = useState(
+    {
+      experiences: [],
+      searchKeyword: ''
+    }
+  )
 
-  onLoadData() {
+  const sendGetRequest = async () => {
+    try {
 
-  }
+      const userInfo = LocalStorageService.getUserInfo();
+      const payload = { userId: userInfo.userId };
 
-  componentDidMount() {
-    this.onLoadData();
-  }
+      projectServices.getAllExperiences(payload)
+        .then(function (response) {
+          console.log(response.data)
+          setExperienceState({
+            ...experienceState, experiences: response.data
+          });
+        })
 
-  handleValueChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    sendGetRequest();
+  }, []);
+
+  
+
+
+  const handleValueChange = (e) => {
+    setExperienceState({ ...experienceState, [e.target.name]: e.target.value });
   };
 
-  onDeleteHandler = (id) => {
-
+  
+  const onDeleteHandler = (id) => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            projectServices.deleteExperience(id).then(response => {
+              sendGetRequest();
+            })
+              .catch((error) => {
+                console.log('Delete Experience: ' + error);
+              });
+          }
+        },
+        {
+          label: 'No'
+        }
+      ]
+    });
   }
 
-  render(){
-  return (<div className="bodyLayout">
+ 
+  return (
+  <div>
 
 <Breadcrumbs links={breadcrumbLinks} />
         <Card
@@ -81,7 +107,7 @@ class Experience extends Component {
                     id="inlineFormInput"
                     placeholder="Company Name"
                     name="searchKeyword"
-                    onChange={this.handleValueChange}
+                    onChange={handleValueChange}
                   />
                 </Col>
                 <Col xs="auto">
@@ -106,8 +132,8 @@ class Experience extends Component {
               </thead>
               <tbody>
                 {
-                  this.state.Experience.map((experience, index) =>
-                    experience.cname.toLowerCase().includes(this.state.searchKeyword.toLowerCase()) ?
+                  experienceState.experiences.map((experience, index) =>
+                    experience.cname.toLowerCase().includes(experienceState.searchKeyword.toLowerCase()) ?
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{experience.syear}</td>
@@ -116,8 +142,8 @@ class Experience extends Component {
                         <td>{experience.position}</td>
                         <td>{experience.description}</td>
                         <td className='text-center'>
-                          <NavLink exact to={'/experience/edit/' + experience.id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
-                          <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => this.onDeleteHandler(experience.id)} /></NavLink>
+                          <NavLink exact to={'/experience/edit/' + experience._id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
+                          <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => onDeleteHandler(experience._id)} /></NavLink>
                         </td>
                       </tr> : ''
                   )
@@ -127,7 +153,9 @@ class Experience extends Component {
           </Card.Body>
         </Card>
 
-        </div>)};
-};
+        </div>
+        );
+      }
+
 
 export default Experience;

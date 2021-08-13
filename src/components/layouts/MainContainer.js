@@ -14,7 +14,7 @@ import EditContact from '../pages/Contact/EditContact';
 import Education from '../pages/Education/Education';
 import AddEducation from '../pages/Education/AddEducation';
 import EditEducation from '../pages/Education/EditEducation';
-import DeleteEducation from '../pages/Education/DeleteEducation';
+
 
 import Experience from '../pages/Experience/Experience';
 import AddExperience from '../pages/Experience/AddExperience';
@@ -108,7 +108,7 @@ function MainContainer() {
             <LoggedInRoute path='/education' exact component={Education} />
             <LoggedInRoute path='/education/add' exact component={AddEducation} />
             <LoggedInRoute path='/education/edit/:id' exact component={EditEducation} />
-            <LoggedInRoute path='/education/delete/:id' exact component={DeleteEducation} />
+            
             <LoggedInRoute path='/experience' exact component={Experience} />
             <LoggedInRoute path='/experience/add' exact component={AddExperience} />
             <LoggedInRoute path='/experience/edit/:id' exact component={EditExperience} />
