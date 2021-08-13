@@ -88,23 +88,6 @@ const AboutMe = () => {
       >
       <Card.Header>About Me</Card.Header>
       <Card.Body>
-          {/* <Form className='float-left'>
-            <Form.Row className="align-items-center">
-              <Col xs="auto">
-                <Form.Control
-                  size="sm"
-                  className="mb-4"
-                  id="inlineFormInput"
-                  placeholder="About Me"
-                  name="searchKeyword"
-                  onChange={handleValueChange}
-                />
-              </Col>
-              <Col xs="auto">
-                <Button size="sm" type="submit" className="mb-4" variant='info'>Search</Button>
-              </Col>
-            </Form.Row>
-          </Form> */}
           <NavLink exact to='/about-me/add' className='myButton'>Add Aboutme</NavLink>
           <Table bordered hover>
             <thead>
