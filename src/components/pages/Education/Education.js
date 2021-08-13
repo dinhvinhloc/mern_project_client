@@ -1,8 +1,12 @@
-import React, {Component} from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
+import * as educationServices from './../../../services/educationServices';
+import LocalStorageService from './../../../utils/localStorage';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';  
 
 const breadcrumbLinks = [
   {
@@ -19,50 +23,71 @@ const breadcrumbLinks = [
   
 
 
-class Education extends Component {
+const Education = () => {
 
-  state = {
-    Education: [
-      {
-        "id": "1",
-        "syear": "2020",
-        "eyear": "2021",
-        "iname": "Humber College",
-        "cname": "Information Technology Solutions",
-      },
-      {
-        "id": "2",
-        "syear": "2015",
-        "eyear": "2019",
-        "iname": "Laxmi Institute of Technology",
-        "cname": "Computer Science Engineering",
-      },
-      
-    ],
-    searchKeyword: ''
-    
-  }
+  const [educationState, setEducationState] = useState(
+    {
+      educations: [],
+      searchKeyword: ''
+    }
+  )
 
-  onLoadData() {
+  const sendGetRequest = async () => {
+    try {
 
-  }
+      const userInfo = LocalStorageService.getUserInfo();
+      const payload = { userId: userInfo.userId };
 
-  componentDidMount() {
-    this.onLoadData();
-  }
+      educationServices.getAllEducations(payload)
+        .then(function (response) {
+          console.log(response.data)
+          setEducationState({
+            ...educationState, educations: response.data
+          });
+        })
 
-  handleValueChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    sendGetRequest();
+  }, []);
+
+ 
+
+  const handleValueChange = (e) => {
+    setEducationState({ ...educationState, [e.target.name]: e.target.value });
   };
 
-  onDeleteHandler = (id) => {
-
+  const onDeleteHandler = (id) => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            educationServices.deleteEducation(id).then(response => {
+              sendGetRequest();
+            })
+              .catch((error) => {
+                console.log('Delete Education: ' + error);
+              });
+          }
+        },
+        {
+          label: 'No'
+        }
+      ]
+    });
   }
 
-  render(){
-  return (<div className="bodyLayout">
+  return (
+    <div>
 
-<Breadcrumbs links={breadcrumbLinks} />
+      <Breadcrumbs links={breadcrumbLinks} />
         <Card
           bg='light'
           text='dark'
@@ -79,7 +104,7 @@ class Education extends Component {
                     id="inlineFormInput"
                     placeholder="Course Name"
                     name="searchKeyword"
-                    onChange={this.handleValueChange}
+                    onChange={handleValueChange}
                   />
                 </Col>
                 <Col xs="auto">
@@ -103,8 +128,8 @@ class Education extends Component {
               </thead>
               <tbody>
                 {
-                  this.state.Education.map((education, index) =>
-                    education.cname.toLowerCase().includes(this.state.searchKeyword.toLowerCase()) ?
+                  educationState.educations.map((education, index) =>
+                    education.cname.toLowerCase().includes(educationState.searchKeyword.toLowerCase()) ?
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{education.syear}</td>
@@ -112,8 +137,8 @@ class Education extends Component {
                         <td>{education.iname}</td>
                         <td>{education.cname}</td>
                         <td className='text-center'>
-                          <NavLink exact to={'/education/edit/' + education.id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
-                          <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => this.onDeleteHandler(education.id)} /></NavLink>
+                          <NavLink exact to={'/education/edit/' + education._id} className='mr-3'><FaPenSquare className='text-warning' /></NavLink>
+                          <NavLink exact to='#' className='mr-3'><FaTrash className='text-danger' onClick={() => onDeleteHandler(education._id)} /></NavLink>
                         </td>
                       </tr> : ''
                   )
@@ -123,7 +148,9 @@ class Education extends Component {
           </Card.Body>
         </Card>
 
-        </div>)};
-};
+        </div>
+    );
+}
+
 
 export default Education;
