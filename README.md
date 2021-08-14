@@ -9,6 +9,10 @@
     - Implemented CRUD operations on Aboutme and Skills subsections.
     - Implemented Create Resume functionality to show multiple resumes on homepage based on the rows selected by user in build resume page.
 
+ - Loc Dinh
+    - Implemented Login and Register page.
+    - Implemented axios interceptor to inject token to message header
+    - Implemented CRUD operations on Projects and Languages subsections.
 
 ## Learning Curve and challengers
 ## Resources
