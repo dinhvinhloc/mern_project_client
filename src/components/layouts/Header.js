@@ -9,6 +9,8 @@ function Header() {
         LocalStorageService.deleteUserInfo();
     }
 
+    const userInfo = LocalStorageService.getUserInfo();
+
     return (
         <div className="main-header">
             <nav className="navbar navbar-dark sticky-top bg-light flex-md-nowrap p-0 shadow">
@@ -20,7 +22,7 @@ function Header() {
                     <li className="nav-item text-nowrap">
                     {isLogin() == null ?
                         (<NavLink exact to='/login' className='nav-link'>Login</NavLink>)
-                        : (<NavLink exact to='/login' onClick={logout} className='nav-link'>Logout</NavLink>)}
+                        : (<NavLink exact to='/login' onClick={logout} className='nav-link'>Logout {userInfo.userEmail}</NavLink>)}
                     </li>
                 </ul>
             </nav>

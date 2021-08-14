@@ -3,6 +3,7 @@ import { Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import * as authServices from '../../services/authServices';
 import { useHistory } from 'react-router-dom';
+import LocalStorageService from '../../utils/localStorage';
 
 function Register() {
 
@@ -10,7 +11,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValid, setIsValid] = useState(true);
-  const [validationError, setValidationError] = useState('');
+  const [error, setError] = useState('');
   const history = useHistory();
 
 
@@ -25,14 +26,20 @@ function Register() {
 
 
     authServices.register(data).then(res => {
-      if (res.status == 200) {
+        LocalStorageService.setUserInfo(res.data);
         setIsValid(true);
         history.push('/');
-      } else {
-        setIsValid(false);
-        setValidationError(res.data.message);
-      }
-    });
+       
+    }).catch(err => {
+      console.log(err)
+      let errorMessage = []
+      err.errors.forEach(error =>{
+        errorMessage.push(error.msg)
+      })
+      
+      setError(errorMessage.join(", "))
+      setIsValid(false);
+    })
 
   }
 
@@ -40,13 +47,13 @@ function Register() {
     <Row>
       <Col md={{ span: 4, offset: 4 }} className='mt-5 mb-5'>
         <Card>
-          <Card.Img variant="top" src={process.env.PUBLIC_URL + '/register.jpg'} />
+          <Card.Img variant="top" src={process.env.PUBLIC_URL + '/Login.jpg'} />
           <Card.Body>
             <Form onSubmit={handleRegister}>
 
               {isValid == false ? (
                 <Form.Group >
-                  <Form.Label className="alert alert-danger" >{validationError}</Form.Label>
+                  <Form.Label className="alert alert-danger" >{error}</Form.Label>
                 </Form.Group>) : ''}
               <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Name</Form.Label>

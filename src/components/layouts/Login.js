@@ -8,6 +8,7 @@ function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [invalidCredential, setInvalidCredential] = useState(false);
   const history = useHistory();
 
@@ -20,7 +21,7 @@ function Login() {
     };
 
     authServices.login(data).then(res => {
-      if (res.status == 200 && res.data.userEmail != null) {
+      // if (res.status == 200 && res.data.userEmail != null) {
         const data = res.data;
 
         LocalStorageService.setUserInfo(data);
@@ -30,10 +31,19 @@ function Login() {
         setInvalidCredential(false);
 
         history.push('/');
-      } else {
-        setInvalidCredential(true);
-      }
-    });
+      // } else {
+      //   setInvalidCredential(true);
+      // }
+    }).catch(err => {
+      console.log(err)
+      let errorMessage = []
+      err.errors.forEach(error =>{
+        errorMessage.push(error.msg)
+      })
+      
+      setError(errorMessage.join(", "))
+      setInvalidCredential(true);
+    })
 
   }
 
@@ -46,7 +56,7 @@ function Login() {
             <Form onSubmit={handleLogin}>
               {invalidCredential ? (
                 <Form.Group >
-                  <Form.Label className="alert alert-danger">Invalid username/password</Form.Label>
+                  <Form.Label className="alert alert-danger">{error}</Form.Label>
                 </Form.Group>) : ''}
 
               <Form.Group>
