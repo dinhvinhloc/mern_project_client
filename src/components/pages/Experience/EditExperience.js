@@ -17,7 +17,7 @@ const breadcrumbLinks = [
     path: '/experience',
   },
   {
-    label: 'edit Experience',
+    label: 'Edit Experience',
     path: '/experience/edit',
     active: true
   }
@@ -92,7 +92,7 @@ const EditExperience = (props) => {
 
   
     return (
-      <div>
+      <div className="bodyLayout">
         <Breadcrumbs links={breadcrumbLinks} />
         {  
         error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''

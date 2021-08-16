@@ -85,7 +85,7 @@ const Education = () => {
   }
 
   return (
-    <div>
+    <div className="bodyLayout">
 
       <Breadcrumbs links={breadcrumbLinks} />
         <Card

@@ -91,7 +91,7 @@ const EditEducation = (props) => {
 
  
     return (
-      <div>
+      <div className="bodyLayout">
         <Breadcrumbs links={breadcrumbLinks} />
         {  
         error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''

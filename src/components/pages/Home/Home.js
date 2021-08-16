@@ -6,6 +6,7 @@ import Pdf from 'react-to-pdf';
 import * as builderService from './../../../services/builderService';
 import * as skillServices from './../../../services/skillServices';
 import * as educationServices from './../../../services/educationServices';
+import * as experienceServices from './../../../services/experienceServices';
 import * as aboutmeServices from './../../../services/aboutmeServices';
 import LocalStorageService from './../../../utils/localStorage';
 import { Table, Button, Card, Form, Col } from 'react-bootstrap';
@@ -29,6 +30,7 @@ function Home(props) {
   const [allSkills, setAllSkills] = useState([])
   const [allAboutMe, setAllAboutMe] = useState([])
   const [allEducations, setAllEducations] = useState([])
+  const [allExperiences, setAllExperiences] = useState([])
 
   const getAllAboutMe = async () => {
 
@@ -76,6 +78,21 @@ function Home(props) {
     }
   }
 
+  const getAllExperiences = async () => {
+    try {
+      const userInfo = LocalStorageService.getUserInfo();
+      const payload = { userId: userInfo.userId };
+
+      experienceServices.getAllExperiences(payload)
+        .then(function (response) {
+          //console.log(response.data)
+          setAllExperiences(response.data);
+        })
+    } catch (e) {
+      console.error("Error fetching all Experiences: " + e)
+    }
+  }
+
   const sendGetRequest = async () => {
     try {
 
@@ -104,19 +121,22 @@ function Home(props) {
     getAllAboutMe();
     getAllSkills();
     getAllEducations();
+    getAllExperiences();
     // getAllAboutMe(); // to do
     sendGetRequest();
   }, []);
 
   const renderResume = (resume) => {
     //console.log(allSkills)
-    if (!allSkills || !allAboutMe || !allEducations)
+    if (!allSkills || !allAboutMe || !allEducations || !allExperiences)
       return null;
 
     // filer out skills for this resume from allSkills
     const skillsToRender = allSkills.filter((skill) => resume.skills && resume.skills.indexOf(skill._id) !== -1);
     const aboutmeToRender = allAboutMe.filter((aboutme) => resume.aboutmes && resume.aboutmes.indexOf(aboutme._id) !== -1);
     const educationsToRender = allEducations.filter((education) => resume.educations && resume.educations.indexOf(education._id) !== -1);
+    const experiencesToRender = allExperiences.filter((experience) => resume.experiences && resume.experiences.indexOf(experience._id) !== -1);
+
     // filer out aboutme for this resume from allAboutMe
     // const aboutMeToRender = allAboutMe.filter((aboutMe) => resume.aboutMe && resume.aboutMe.indexOf(aboutMe._id) !== -1 );
 
@@ -250,6 +270,40 @@ function Home(props) {
               </tbody>
             </Table>
           </Card.Body>
+
+          <Card.Header>Experience</Card.Header>
+          <Card.Body>
+            <Table bordered hover>
+              <thead>
+                <tr>
+                  <th>Start Year</th>
+                  <th>End Year</th>
+                  <th>Company Name</th>
+                  <th>Position</th>
+                  <th>Description</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  experiencesToRender && experiencesToRender.map((experience) =>
+                    <tr>
+                      <td>{experience.syear}</td>
+                      <td>{experience.eyear}</td>
+                      <td>{experience.cname}</td>
+                      <td>{experience.position}</td>
+                      <td>{experience.description}</td>
+                    </tr>
+                    // <li key={skill._id}>{skill.description}</li>
+                    // <p>{skill.proflevel}</p>
+                    // <p>{skill.description}</p>
+
+                  )
+                }
+              </tbody>
+            </Table>
+          </Card.Body>
+
 
         </Card> 
          
