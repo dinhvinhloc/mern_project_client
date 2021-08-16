@@ -3,20 +3,15 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import img1 from "../../../images/resume_sample1.jpeg";
 import img2 from "../../../images/resume_sample2.jpeg";
+import Home from "../Home/Home"
 
 const HomeCarousel = () => {
         return (
             <Carousel>
-                <div className="thumbView2">
-                    <img src={img1} alt="img1" class="carouselImg"/>
-                    <p className="legend">New Grad Resume</p>
-                </div>
-                <div className="thumbView2">
-                    <img src={img2} alt="img2" class="carouselImg"/>
-                    <p className="legend">General Resume</p>
-                </div>
+                <Home></Home>
             </Carousel>
-        );
+            
+        )
 }
 
 export default HomeCarousel;
