@@ -12,6 +12,7 @@ import GetAboutme from './buildResumeSections/GetAboutme';
 import GetEducations from './buildResumeSections/GetEducations';
 import GetExperiences from './buildResumeSections/GetExperiences';
 import GetAwards from './buildResumeSections/GetAwards';
+import GetContacts from './buildResumeSections/GetContacts';
 import * as builderService from '../../../services/builderService';
 import { useHistory } from 'react-router-dom';
 
@@ -21,6 +22,7 @@ export const MANAGED_TYPES = {
     EDUCATION :'education',
     EXPERIENCE : 'experience',
     AWARD : 'award',
+    CONTACT : 'contact',
     //... add more
 }
 
@@ -144,6 +146,26 @@ function BuildResume() {
                             }
                         break;
 
+                        // CONTACT
+                        case MANAGED_TYPES.CONTACT:
+                            if (!selectedData.contacts) {
+                                setSelectedData({contacts: [payload.value], ...selectedData})
+                            } else {
+                                // if payload.value exists in selectedData.contacts => remove else add
+                                // [12,34,5,6,77]
+                                const newContacts = selectedData.contacts;
+                                const index = newContacts.indexOf(payload.value);
+                                if (index === -1) {
+                                    // add this value
+                                    newContacts.push(payload.value);
+                                } else {
+                                    // remove
+                                    newContacts.splice(index, 1);
+                                }
+                                setSelectedData({contacts: [...newContacts], ...selectedData})
+                            }
+                        break;
+
 
             default://
         }
@@ -172,6 +194,7 @@ function BuildResume() {
             <GetEducations changeHandler={onStateChange}/>
             <GetExperiences changeHandler={onStateChange} />
             <GetAwards changeHandler={onStateChange} />
+            <GetContacts changeHandler={onStateChange} />
             <NavLink to='/' className='myButton' onClick={onSubmit}>Build</NavLink>
               <NavLink to='/' className='myButton'>Cancel</NavLink>
         </div>
