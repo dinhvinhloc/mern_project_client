@@ -10,6 +10,14 @@ function Header() {
     }
 
     const userInfo = LocalStorageService.getUserInfo();
+    var userEmail = userInfo.userEmail
+    var logoutText
+
+    if (userEmail){
+        logoutText = "Logout " + userEmail
+    } else {
+        logoutText = "Logout"
+    }
 
     return (
         <div className="main-header">
@@ -22,7 +30,7 @@ function Header() {
                     <li className="nav-item text-nowrap">
                     {isLogin() == null ?
                         (<NavLink exact to='/login' className='nav-link'>Login</NavLink>)
-                        : (<NavLink exact to='/login' onClick={logout} className='nav-link'>Logout {userInfo.userEmail}</NavLink>)}
+                        : (<NavLink exact to='/login' onClick={logout} className='nav-link'>{logoutText}</NavLink>)}
                     </li>
                 </ul>
             </nav>
