@@ -11,6 +11,7 @@ import GetSkills from './buildResumeSections/GetSkills';
 import GetAboutme from './buildResumeSections/GetAboutme';
 import GetEducations from './buildResumeSections/GetEducations';
 import GetExperiences from './buildResumeSections/GetExperiences';
+import GetAwards from './buildResumeSections/GetAwards';
 import * as builderService from '../../../services/builderService';
 import { useHistory } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ export const MANAGED_TYPES = {
     SKILL : 'skill',
     EDUCATION :'education',
     EXPERIENCE : 'experience',
+    AWARD : 'award',
     //... add more
 }
 
@@ -41,7 +43,7 @@ function BuildResume() {
         if (!payload || !payload.type || !payload.value)
             return;
 
-        
+
         switch(payload.type) {
             //skills
             case MANAGED_TYPES.SKILL:
@@ -122,10 +124,31 @@ function BuildResume() {
                         }
                         break;
 
+                        // AWARD
+                        case MANAGED_TYPES.AWARD:
+                            if (!selectedData.awards) {
+                                setSelectedData({awards: [payload.value], ...selectedData})
+                            } else {
+                                // if payload.value exists in selectedData.awards => remove, else add
+                                // [12,34,5,6,77]
+                                const newAwards = selectedData.awards;
+                                const index = newAwards.indexOf(payload.value);
+                                if (index === -1) {
+                                    // add this value
+                                    newAwards.push(payload.value);
+                                } else {
+                                    // remove
+                                    newAwards.splice(index, 1);
+                                }
+                                setSelectedData({awards: [...newAwards], ...selectedData})
+                            }
+                        break;
+
+
             default://
         }
-        
-    }  
+
+    }
 
     const onSubmit = (e) => {
         builderService.createResume(selectedData)
@@ -148,6 +171,7 @@ function BuildResume() {
             <GetSkills  changeHandler={onStateChange} />
             <GetEducations changeHandler={onStateChange}/>
             <GetExperiences changeHandler={onStateChange} />
+            <GetAwards changeHandler={onStateChange} />
             <NavLink to='/' className='myButton' onClick={onSubmit}>Build</NavLink>
               <NavLink to='/' className='myButton'>Cancel</NavLink>
         </div>
