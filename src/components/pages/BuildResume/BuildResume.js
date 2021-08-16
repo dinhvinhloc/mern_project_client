@@ -13,6 +13,7 @@ import GetEducations from './buildResumeSections/GetEducations';
 import GetExperiences from './buildResumeSections/GetExperiences';
 import GetAwards from './buildResumeSections/GetAwards';
 import GetContacts from './buildResumeSections/GetContacts';
+import GetHobbies from './buildResumeSections/GetHobbies';
 import * as builderService from '../../../services/builderService';
 import { useHistory } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ export const MANAGED_TYPES = {
     EXPERIENCE : 'experience',
     AWARD : 'award',
     CONTACT : 'contact',
+    HOBBY : 'hobby',
     //... add more
 }
 
@@ -132,7 +134,7 @@ function BuildResume() {
                                 setSelectedData({awards: [payload.value], ...selectedData})
                             } else {
                                 // if payload.value exists in selectedData.awards => remove, else add
-                                // [12,34,5,6,77]
+                                //
                                 const newAwards = selectedData.awards;
                                 const index = newAwards.indexOf(payload.value);
                                 if (index === -1) {
@@ -152,7 +154,7 @@ function BuildResume() {
                                 setSelectedData({contacts: [payload.value], ...selectedData})
                             } else {
                                 // if payload.value exists in selectedData.contacts => remove else add
-                                // [12,34,5,6,77]
+                                //
                                 const newContacts = selectedData.contacts;
                                 const index = newContacts.indexOf(payload.value);
                                 if (index === -1) {
@@ -163,6 +165,26 @@ function BuildResume() {
                                     newContacts.splice(index, 1);
                                 }
                                 setSelectedData({contacts: [...newContacts], ...selectedData})
+                            }
+                        break;
+
+                        // HOBBY
+                        case MANAGED_TYPES.HOBBY:
+                            if (!selectedData.hobbies) {
+                                setSelectedData({hobbies: [payload.value], ...selectedData})
+                            } else {
+                                // if payload.value exists in selectedData.hobbies => remove else add
+                                //
+                                const newHobbies = selectedData.hobbies;
+                                const index = newHobbies.indexOf(payload.value);
+                                if (index === -1) {
+                                    // add this value
+                                    newHobbies.push(payload.value);
+                                } else {
+                                    // remove
+                                    newHobbies.splice(index, 1);
+                                }
+                                setSelectedData({hobbies: [...newHobbies], ...selectedData})
                             }
                         break;
 
@@ -195,6 +217,7 @@ function BuildResume() {
             <GetExperiences changeHandler={onStateChange} />
             <GetAwards changeHandler={onStateChange} />
             <GetContacts changeHandler={onStateChange} />
+            <GetHobbies changeHandler={onStateChange} />
             <NavLink to='/' className='myButton' onClick={onSubmit}>Build</NavLink>
               <NavLink to='/' className='myButton'>Cancel</NavLink>
         </div>
