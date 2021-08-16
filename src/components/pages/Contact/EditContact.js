@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Breadcrumbs from '../../layouts/Breadcrumbs';
-import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
 import { Button, Card, Form, Col, Alert } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+import * as contactServices from './../../../services/contactServices';
+import { useHistory } from 'react-router-dom';
+
 
 const breadcrumbLinks = [
   {
@@ -19,30 +21,78 @@ const breadcrumbLinks = [
   }
 ];
 
+
 const EditContact = () => {
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [webURL, setWebURL] = useState('');
 
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
+  const history = useHistory();
 
-  const handleChangePhone = (e) => {
-    setPhone(e.target.value);
-  };
+  const [payload, setPayload] = useState({
+    id: '',
+    email: '',
+    phone: '',
+    webURL: ''
+  })
 
-  const handleChangeURL = (e) => {
-    setWebURL(e.target.value);
+  const sendGetRequest = async () => {
+    try {
+
+      console.log(payload.id)
+      contactServices.detailContact(props.match.params.id)
+        .then(function (response) {
+          console.log(response.data)
+          setPayload({
+            id: response.data._id, email: response.data.email, phone: response.data.phone, webURL: response.data.webURL
+          });
+        })
+
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
   };
+  useEffect(() => {
+    sendGetRequest();
+  }, []);
+
+
+
+  const [error, setError] = useState(
+    {
+      messageVariant: 'danger',
+      message: '',
+    }
+  )
 
   const saveHandler = (e) => {
 
+    contactServices.updateContact(payload)
+      .then(response => {
+        console.log(response.data);
+        history.push('/contact')
+      })
+      .catch((error) => {
+        let errorMessage = []
+        error.errors.forEach(error => {
+          errorMessage.push(error.param + ": " + error.msg)
+        })
+
+        setError({
+          messageVariant: 'danger',
+          message: errorMessage.join(),
+        });
+      });
   }
+
+  const handleValueChange = (e) => {
+    setPayload({ ...payload, [e.target.name]: e.target.value });
+  };
 
   return (
     <div>
       <Breadcrumbs links={breadcrumbLinks} />
+      {
+        error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''
+      }
       <Card
         bg='light'
         text='dark'
@@ -57,24 +107,24 @@ const EditContact = () => {
                   <Form.Control
                   size='sm' type='email' name='email'
                   placeholder='Enter your email'
-                  value={email}
-                  onChange={handleChangeEmail} />
+                  value={payload.email}
+                  onChange={handleValueChange} />
                 </Col>
                 <Col>
                   <Form.Label>Phone:</Form.Label>
                   <Form.Control
                   size='sm' type='text' name='phone'
                   placeholder='Enter your phone'
-                  value={phone}
-                  onChange={handleChangePhone} />
+                  value={payload.phone}
+                  onChange={handleValueChange} />
                 </Col>
                 <Col>
                   <Form.Label>Website URL:</Form.Label>
                   <Form.Control
                   size='sm' type='text' name='webURL'
                   placeholder='Enter the link to your personal website'
-                  value={webURL}
-                  onChange={handleChangeURL} />
+                  value={payload.webURL}
+                  onChange={handleValueChange} />
                 </Col>
               </Form.Row>
             </Form.Group>
