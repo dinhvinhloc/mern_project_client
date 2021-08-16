@@ -121,7 +121,7 @@ const Award = () => {
             <tbody>
               {
                 awardState.awards.map((award, index) =>
-                  award.name.toLowerCase().includes
+                  award.title.toLowerCase().includes
                   (awardState.searchKeyword.toLowerCase()) ?
                   <tr key={index}>
                     <td>{index+1}</td>
