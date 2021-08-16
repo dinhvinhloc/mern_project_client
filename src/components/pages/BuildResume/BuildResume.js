@@ -9,12 +9,14 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import GetSkills from './buildResumeSections/GetSkills';
 import GetAboutme from './buildResumeSections/GetAboutme';
+import GetEducations from './buildResumeSections/GetEducations';
 import * as builderService from '../../../services/builderService';
 import { useHistory } from 'react-router-dom';
 
 export const MANAGED_TYPES = {
     ABOUT_ME : 'about_me',
     SKILL : 'skill',
+    EDUCATION :'education',
     //... add more
 }
 
@@ -78,6 +80,26 @@ function BuildResume() {
                     }
                     break;
 
+                    //Education
+                    case MANAGED_TYPES.EDUCATION:
+                        if (!selectedData.educations) {
+                            setSelectedData({educations: [payload.value], ...selectedData})
+                        } else {
+                            // if payload.value exists in selectedData.skills => remove else add
+                            // [12,34,5,6,77]
+                            const newEducations = selectedData.educations;
+                            const index = newEducations.indexOf(payload.value);
+                            if (index === -1) {
+                                // add this value
+                                newEducations.push(payload.value);
+                            } else {
+                                // remove
+                                newEducations.splice(index, 1);
+                            }
+                            setSelectedData({educations: [...newEducations], ...selectedData})
+                        }
+                        break;
+
             default://
         }
         
@@ -99,9 +121,10 @@ function BuildResume() {
 
     return (
         <div className='bodyLayout'>
-            <h1>Build Resume</h1>
+            <h1>Build Resume </h1>
             <GetAboutme changeHandler={onStateChange}/>
             <GetSkills  changeHandler={onStateChange} />
+            <GetEducations changeHandler={onStateChange}/>
             <NavLink to='/' className='myButton' onClick={onSubmit}>Build</NavLink>
               <NavLink to='/' className='myButton'>Cancel</NavLink>
         </div>
