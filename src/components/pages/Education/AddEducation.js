@@ -69,7 +69,7 @@ const AddEducation = () => {
 
   
     return (
-      <div>
+      <div className="bodyLayout">
         <Breadcrumbs links={breadcrumbLinks} />
         {  
           error.message ? <Alert variant={error.messageVariant}>{error.message}</Alert> : ''

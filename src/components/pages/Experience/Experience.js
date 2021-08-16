@@ -88,7 +88,7 @@ const Experience = () => {
 
  
   return (
-  <div>
+  <div className="bodyLayout">
 
 <Breadcrumbs links={breadcrumbLinks} />
         <Card
