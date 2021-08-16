@@ -22,7 +22,7 @@ const breadcrumbLinks = [
 ];
 
 
-const EditContact = () => {
+const EditContact = (props) => {
 
   const history = useHistory();
 

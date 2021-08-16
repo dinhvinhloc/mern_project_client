@@ -91,7 +91,6 @@ const AddHobby = () => {
                     <Form.Control
                       as='select'
                       size='sm' name='type'
-                      value={type}
                       onChange={handleValueChange} >
                         <option value='' key='-1'>--- Please select type ---</option>
                         {

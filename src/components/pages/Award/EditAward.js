@@ -21,7 +21,7 @@ const breadcrumbLinks = [
   }
 ];
 
-const EditAward = () => {
+const EditAward = (props) => {
   const history = useHistory();
 
   const [payload, setPayload] = useState({
