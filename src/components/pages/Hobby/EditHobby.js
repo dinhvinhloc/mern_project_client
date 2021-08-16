@@ -23,7 +23,7 @@ const breadcrumbLinks = [
   }
 ];
 
-const EditHobby = () => {
+const EditHobby = (props) => {
   const history = useHistory();
 
   const [payload, setPayload] = useState({
