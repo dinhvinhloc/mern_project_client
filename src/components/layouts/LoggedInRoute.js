@@ -5,8 +5,7 @@ import { isLogin } from '../../services/authServices';
 const LoggedInRoute = ({ component: Component, ...rest }) => {
     
     return (
-        // restricted = false meaning public route
-        // restricted = true meaning restricted route
+
         <Route {...rest} render={props => (
             !isLogin() ?
                 <Redirect to="/login" />

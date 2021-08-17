@@ -21,7 +21,7 @@ function Login() {
     };
 
     authServices.login(data).then(res => {
-      // if (res.status == 200 && res.data.userEmail != null) {
+
         const data = res.data;
 
         LocalStorageService.setUserInfo(data);
@@ -31,9 +31,7 @@ function Login() {
         setInvalidCredential(false);
 
         history.push('/');
-      // } else {
-      //   setInvalidCredential(true);
-      // }
+
     }).catch(err => {
       console.log(err)
       let errorMessage = []
